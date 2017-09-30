@@ -25,9 +25,24 @@ public class MainJFrame extends javax.swing.JFrame {
     private Mode mode = Mode.PRACTICE;
     private boolean playing = false;
 
+    /**
+     *
+     */
     public enum Mode {
+
+        /**
+         *
+         */
         PRACTICE,
+
+        /**
+         *
+         */
         LISTEN,
+
+        /**
+         *
+         */
         TESTING;
     }
 

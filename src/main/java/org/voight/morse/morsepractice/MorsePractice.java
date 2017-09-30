@@ -25,12 +25,22 @@ public class MorsePractice {
     String inputText = "abCDEfghI";//ijklmnopqrstuvwxyz1234567890";
     //MorsePlayer morsePlayer;
 
+    /**
+     *
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws LineUnavailableException
+     */
     public MorsePractice() throws FileNotFoundException, IOException, LineUnavailableException {
         log.log(Level.INFO, "MorsePractice by Jeffrey Voight");
         //morsePlayer=new MorsePlayer(44100, 700, 15);
         //morsePlayer.setHz(700);
     }
 
+    /**
+     *
+     * @param argv
+     */
     public static void main(String argv[]) {
 
         try {

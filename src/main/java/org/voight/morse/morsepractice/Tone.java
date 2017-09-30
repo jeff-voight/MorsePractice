@@ -16,10 +16,20 @@ public class Tone {
     float frequency;
     int volume;
 
+    /**
+     *
+     * @throws LineUnavailableException
+     */
     public Tone() throws LineUnavailableException {
         this(44100, 40);
     }
 
+    /**
+     *
+     * @param _frequency
+     * @param _volume
+     * @throws LineUnavailableException
+     */
     public Tone(float _frequency, int _volume) throws LineUnavailableException {
         frequency = _frequency;
         volume = _volume;
@@ -32,7 +42,7 @@ public class Tone {
      * @param msecs
      * @return
      */
-    public byte[] getTone(int hz, int msecs) {
+    public byte[] getSineWave(int hz, int msecs) {
         byte[] returnArray = new byte[(int) (msecs * frequency / 1000)];
         if (hz > 0) {
             for (int i = 0; i < returnArray.length; i++) {

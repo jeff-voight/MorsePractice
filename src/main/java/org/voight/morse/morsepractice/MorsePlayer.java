@@ -22,14 +22,33 @@ import javax.sound.sampled.SourceDataLine;
  */
 public class MorsePlayer {
 
+    /**
+     *
+     */
     protected int frequency = 44100;
+
+    /**
+     *
+     */
     protected int speed = 10;
+
+    /**
+     *
+     */
     protected int hz=700;
     static final Logger log = Logger.getLogger(MorsePlayer.class.getName());
     HashMap<String, Symbol> symbols = new HashMap<>();
-    static AudioFormat af;
-    static SourceDataLine sdl;
+     AudioFormat af;
+     SourceDataLine sdl;
 
+    /**
+     *
+     * @param _frequency
+     * @param _hz
+     * @param _speed
+     * @throws IOException
+     * @throws LineUnavailableException
+     */
     public MorsePlayer(int _frequency, int _hz, int _speed) throws IOException, LineUnavailableException {
         setFrequency(_frequency);
         setHz(_hz);
@@ -55,6 +74,10 @@ public class MorsePlayer {
         return frequency;
     }
 
+    /**
+     *
+     * @param _frequency
+     */
     final public void setFrequency(int _frequency){
         if(_frequency>44100){
             log.severe("44100 is about the limit, chum.");
@@ -62,6 +85,10 @@ public class MorsePlayer {
         frequency=_frequency;
     }
     
+    /**
+     *
+     * @param hz
+     */
     public final void setHz(int hz) {
         if (hz > 1000) {
             log.severe("You have selected a frequency greater than 1000Hz. That's nuts.");
@@ -86,15 +113,30 @@ public class MorsePlayer {
         this.speed = speed;
     }
 
+    /**
+     *
+     * @param _s
+     * @throws LineUnavailableException
+     */
     public void play(Symbol _s) throws LineUnavailableException{
         playTone(_s.getBytes());
     }
     
+    /**
+     *
+     * @param _c
+     * @throws LineUnavailableException
+     */
     public void play(char _c) throws LineUnavailableException {
         _c=Character.toLowerCase(_c);
         play(symbols.get(""+_c));
     }
 
+    /**
+     *
+     * @param _s
+     * @throws LineUnavailableException
+     */
     public void play(String _s) throws LineUnavailableException {
         int strLen=_s.length();
         for(int i=0;i<strLen;i++){
@@ -102,6 +144,11 @@ public class MorsePlayer {
         }
     }
 
+    /**
+     *
+     * @param byteArray
+     * @throws LineUnavailableException
+     */
     public void playTone(byte[] byteArray) throws LineUnavailableException {
         sdl = AudioSystem.getSourceDataLine(af);
 
