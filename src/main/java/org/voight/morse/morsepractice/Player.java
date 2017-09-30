@@ -20,10 +20,13 @@ public class Player {
     static AudioFormat af;
     static SourceDataLine sdl;
     public static Logger log = Logger.getLogger(Player.class.getName());
-
+    /**
+     * @throws javax.sound.sampled.LineUnavailableException
+     * @deprecated
+     */
     public Player() throws LineUnavailableException {
         this(44100);
-        log.info("Default constructor. Calling custom with 44100.");
+//        log.info("Default constructor. Calling custom with 44100.");
     }
 
     public Player(int _frequency) throws LineUnavailableException {
@@ -36,8 +39,8 @@ public class Player {
     }
 
     public void playTone(byte[] byteArray) throws LineUnavailableException {
-        log.info("Playing tone. byteArray is " + byteArray.length + " bytes.");
-                sdl = AudioSystem.getSourceDataLine(af);
+//        log.info("Playing tone. byteArray is " + byteArray.length + " bytes.");
+        sdl = AudioSystem.getSourceDataLine(af);
 
         sdl.open(af);
         sdl.start();

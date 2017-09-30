@@ -5,10 +5,7 @@
  */
 package org.voight.morse.morsepractice;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.SourceDataLine;
 
 /**
  *
@@ -16,20 +13,17 @@ import javax.sound.sampled.SourceDataLine;
  */
 public class Tone {
 
-    //static AudioFormat af;
-    //static SourceDataLine sdl;
     float frequency;
     int volume;
 
     public Tone() throws LineUnavailableException {
-        this(44100, 20);
+        this(44100, 40);
     }
 
     public Tone(float _frequency, int _volume) throws LineUnavailableException {
         frequency = _frequency;
         volume = _volume;
-        //af = new AudioFormat(frequency, 8, 1, true, false);
-        //sdl = AudioSystem.getSourceDataLine(af);
+        
     }
 
     /**

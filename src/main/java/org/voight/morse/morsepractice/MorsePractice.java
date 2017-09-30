@@ -5,18 +5,13 @@
  */
 package org.voight.morse.morsepractice;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.LineUnavailableException;
+import javax.swing.SwingUtilities;
+import org.voight.morse.morsepractice.ui.MainJFrame;
 
 /**
  *
@@ -25,25 +20,15 @@ import javax.sound.sampled.LineUnavailableException;
 public class MorsePractice {
 
     Logger log = Logger.getLogger(MorsePractice.class.getName());
-    HashMap<String,Symbol> symbols  = new HashMap<> ();
-    int speed=40;
-    String inputText="abcdefghijklmnopqrstuvwxyz1234567890";
+    //HashMap<String,Symbol> symbols  = new HashMap<> ();
+    int speed = 30; // 30 is the limit. Don't go over.
+    String inputText = "abCDEfghI";//ijklmnopqrstuvwxyz1234567890";
+    //MorsePlayer morsePlayer;
 
     public MorsePractice() throws FileNotFoundException, IOException, LineUnavailableException {
         log.log(Level.INFO, "MorsePractice by Jeffrey Voight");
-        Properties p = new Properties();
-        File f = new File(".");
-        System.out.println(f.getCanonicalPath());
-        p.load(new FileReader("src/main/resources/ITUsymbols.properties"));
-        Enumeration e = p.propertyNames();
-        while (e.hasMoreElements()) {
-            String key = (String) e.nextElement();
-            String value = (String) p.getProperty(key);
-            log.info("Key: '"+key+"' Value: '"+value+"'");
-            symbols.put(key, new Symbol(value, speed));
-        }
-        symbols.put(" ", new Symbol(" ", speed));
-
+        //morsePlayer=new MorsePlayer(44100, 700, 15);
+        //morsePlayer.setHz(700);
     }
 
     public static void main(String argv[]) {
@@ -56,22 +41,18 @@ public class MorsePractice {
         }
     }
 
-    private void run() throws LineUnavailableException {
-        Player p = new Player();
-        String myText=inputText.toLowerCase();
-        int inputLen=myText.length();
-        ArrayList<Symbol> outputSymbols=new ArrayList<>();
-        Symbol s;
-        for(int i=0;i<inputLen;i++){
-            char symbol=myText.charAt(i);            
-            s=symbols.get(""+symbol);
-            outputSymbols.add(s);
-        }
-        Iterator<Symbol> it=outputSymbols.iterator();
-        while(it.hasNext()){
-            Symbol t=it.next();
-            p.playTone(t);
-        }        
-
+    private void run() throws LineUnavailableException, IOException {
+        SwingUtilities.invokeLater(() -> {
+            MainJFrame wnd = null;
+            try {
+                wnd = new MainJFrame();
+            } catch (IOException | LineUnavailableException ex) {
+                Logger.getLogger(MorsePractice.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                if (wnd != null) {
+                    wnd.setVisible(true);
+                }
+            }
+        });
     }
 }
