@@ -34,12 +34,10 @@ public class MainJFrame extends javax.swing.JFrame {
          *
          */
         PRACTICE,
-
         /**
          *
          */
         LISTEN,
-
         /**
          *
          */
@@ -69,18 +67,18 @@ public class MainJFrame extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jSlider1 = new javax.swing.JSlider();
+        inputTextArea = new javax.swing.JTextArea();
+        playButton = new javax.swing.JButton();
+        immediatePlayCheckbox = new javax.swing.JCheckBox();
+        gpmSlider = new javax.swing.JSlider();
         jLabel2 = new javax.swing.JLabel();
         gpmSendLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jSlider2 = new javax.swing.JSlider();
+        toneFrequencySlider = new javax.swing.JSlider();
         hzValueLabel = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        practiceRadioButton = new javax.swing.JRadioButton();
+        listenRadioButton = new javax.swing.JRadioButton();
+        testingRadioButton = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         currentLetterText = new javax.swing.JTextArea();
 
@@ -98,44 +96,44 @@ public class MainJFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jScrollPane1.setName("inputText"); // NOI18N
 
-        jTextArea1.setColumns(15);
-        jTextArea1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        jTextArea1.setRows(5);
-        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+        inputTextArea.setColumns(15);
+        inputTextArea.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        inputTextArea.setRows(5);
+        inputTextArea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextArea1KeyTyped(evt);
+                inputTextAreaKeyTyped(evt);
             }
         });
-        jScrollPane1.setViewportView(jTextArea1);
+        jScrollPane1.setViewportView(inputTextArea);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setLabel("Play");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        playButton.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        playButton.setLabel("Play");
+        playButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                playButtonMouseClicked(evt);
             }
         });
 
-        jCheckBox1.setText("Immediate Play");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        immediatePlayCheckbox.setText("Immediate Play");
+        immediatePlayCheckbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                immediatePlayCheckboxActionPerformed(evt);
             }
         });
 
-        jSlider1.setMajorTickSpacing(3);
-        jSlider1.setMaximum(30);
-        jSlider1.setMinimum(3);
-        jSlider1.setMinorTickSpacing(1);
-        jSlider1.setPaintLabels(true);
-        jSlider1.setPaintTicks(true);
-        jSlider1.setSnapToTicks(true);
-        jSlider1.setToolTipText("Set to the GPM you wish to hear");
-        jSlider1.setValue(10);
-        jSlider1.setName("gpmSlider"); // NOI18N
-        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+        gpmSlider.setMajorTickSpacing(3);
+        gpmSlider.setMaximum(30);
+        gpmSlider.setMinimum(3);
+        gpmSlider.setMinorTickSpacing(1);
+        gpmSlider.setPaintLabels(true);
+        gpmSlider.setPaintTicks(true);
+        gpmSlider.setSnapToTicks(true);
+        gpmSlider.setToolTipText("Set to the GPM you wish to hear");
+        gpmSlider.setValue(10);
+        gpmSlider.setName("gpmSlider"); // NOI18N
+        gpmSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSlider1StateChanged(evt);
+                gpmSliderStateChanged(evt);
             }
         });
 
@@ -146,47 +144,47 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Tone Frequency");
 
-        jSlider2.setMajorTickSpacing(100);
-        jSlider2.setMaximum(1000);
-        jSlider2.setMinimum(300);
-        jSlider2.setMinorTickSpacing(50);
-        jSlider2.setPaintLabels(true);
-        jSlider2.setPaintTicks(true);
-        jSlider2.setToolTipText("");
-        jSlider2.setValue(700);
-        jSlider2.addChangeListener(new javax.swing.event.ChangeListener() {
+        toneFrequencySlider.setMajorTickSpacing(100);
+        toneFrequencySlider.setMaximum(1000);
+        toneFrequencySlider.setMinimum(300);
+        toneFrequencySlider.setMinorTickSpacing(50);
+        toneFrequencySlider.setPaintLabels(true);
+        toneFrequencySlider.setPaintTicks(true);
+        toneFrequencySlider.setToolTipText("");
+        toneFrequencySlider.setValue(700);
+        toneFrequencySlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSlider2StateChanged(evt);
+                toneFrequencySliderStateChanged(evt);
             }
         });
 
         hzValueLabel.setText("700 Hz");
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Practice Mode");
-        jRadioButton1.setToolTipText("You type code to be played back");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(practiceRadioButton);
+        practiceRadioButton.setSelected(true);
+        practiceRadioButton.setText("Practice Mode");
+        practiceRadioButton.setToolTipText("You type code to be played back");
+        practiceRadioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                practiceRadioButtonActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Listen Mode");
-        jRadioButton2.setToolTipText("Plays random code and displays it");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(listenRadioButton);
+        listenRadioButton.setText("Listen Mode");
+        listenRadioButton.setToolTipText("Plays random code and displays it");
+        listenRadioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                listenRadioButtonActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("Testing Mode");
-        jRadioButton3.setToolTipText("Plays code while you enter your guesses");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(testingRadioButton);
+        testingRadioButton.setText("Testing Mode");
+        testingRadioButton.setToolTipText("Plays code while you enter your guesses");
+        testingRadioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
+                testingRadioButtonActionPerformed(evt);
             }
         });
 
@@ -203,23 +201,23 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton2)
+                    .addComponent(practiceRadioButton)
+                    .addComponent(testingRadioButton)
+                    .addComponent(listenRadioButton)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
+                            .addComponent(playButton)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jCheckBox1))
+                                        .addComponent(immediatePlayCheckbox))
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(77, 77, 77)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(gpmSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -228,7 +226,7 @@ public class MainJFrame extends javax.swing.JFrame {
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(hzValueLabel))
-                                    .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(toneFrequencySlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(28, Short.MAX_VALUE))
@@ -237,67 +235,68 @@ public class MainJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jRadioButton1)
+                .addComponent(practiceRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton2)
+                        .addComponent(listenRadioButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton3)
+                        .addComponent(testingRadioButton)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(8, 8, 8)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel2)
                                     .addComponent(gpmSendLabel)
-                                    .addComponent(jCheckBox1)))
+                                    .addComponent(immediatePlayCheckbox)))
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel1)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(gpmSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(42, 42, 42)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel3)
                                     .addComponent(hzValueLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(toneFrequencySlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(playButton)
                 .addGap(100, 100, 100))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void playButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playButtonMouseClicked
         // TODO add your handling code here:
         if (playing) {
             playing = false;
-            jButton1.setText("Play");
+            playButton.setText("Play");
         } else {
             playing = true;
-            jButton1.setText("STOP");
-            String theText = jTextArea1.getText();
+            playButton.setText("STOP");
+            String theText = inputTextArea.getText();
             System.out.println("Text: " + theText);
-            class Player extends SwingWorker<String, String>{
+            class Player extends SwingWorker<String, String> {
+
                 @Override
-                public String doInBackground(){
+                public String doInBackground() {
                     int strLen = theText.length();
-                    for (int i = 0; i < strLen&&playing; i++) {                        
-                            play(theText.charAt(i));                        
+                    for (int i = 0; i < strLen && playing; i++) {
+                        play(theText.charAt(i));
                     }
                     return "";
                 }
-                
+
                 @Override
                 protected void done() {
-                    playing=false;
-                    jButton1.setText("Play");
+                    playing = false;
+                    playButton.setText("Play");
 
                 }
             }
@@ -306,11 +305,10 @@ public class MainJFrame extends javax.swing.JFrame {
 //            for (int i = 0; i < strLen; i++) {
 //                play(theText.charAt(i));
 //            }
-            
 
         }
 
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_playButtonMouseClicked
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.setVisible(false);
@@ -318,14 +316,14 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosing
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        if (jCheckBox1.isSelected()) {
+    private void immediatePlayCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_immediatePlayCheckboxActionPerformed
+        if (immediatePlayCheckbox.isSelected()) {
             immediatePlay = true;
         } else {
             immediatePlay = false;
         }
 
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_immediatePlayCheckboxActionPerformed
 
     private void play(char c) {
         try {
@@ -339,17 +337,17 @@ public class MainJFrame extends javax.swing.JFrame {
         }
     }
 
-    private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
+    private void inputTextAreaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputTextAreaKeyTyped
         if (immediatePlay) {
             Character c = evt.getKeyChar();
             play(c);
             System.out.println(c);
         }
 // TODO add your handling code here:
-    }//GEN-LAST:event_jTextArea1KeyTyped
+    }//GEN-LAST:event_inputTextAreaKeyTyped
 
-    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
-        gpm = jSlider1.getValue();
+    private void gpmSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_gpmSliderStateChanged
+        gpm = gpmSlider.getValue();
         gpmSendLabel.setText(gpm + " GPM");
         try {
             morsePlayer = new MorsePlayer(frequency, hz, gpm);
@@ -357,10 +355,10 @@ public class MainJFrame extends javax.swing.JFrame {
         } catch (IOException | LineUnavailableException ex) {
             Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jSlider1StateChanged
+    }//GEN-LAST:event_gpmSliderStateChanged
 
-    private void jSlider2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider2StateChanged
-        int toneHz = jSlider2.getValue();
+    private void toneFrequencySliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_toneFrequencySliderStateChanged
+        int toneHz = toneFrequencySlider.getValue();
         hz = toneHz;
         try {
             morsePlayer = new MorsePlayer(frequency, hz, gpm);
@@ -369,28 +367,28 @@ public class MainJFrame extends javax.swing.JFrame {
         }
         hzValueLabel.setText(hz + " Hz");
         // TODO add your handling code here:
-    }//GEN-LAST:event_jSlider2StateChanged
+    }//GEN-LAST:event_toneFrequencySliderStateChanged
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void practiceRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_practiceRadioButtonActionPerformed
         setMode(evt);        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_practiceRadioButtonActionPerformed
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+    private void testingRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testingRadioButtonActionPerformed
         setMode(evt);        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
+    }//GEN-LAST:event_testingRadioButtonActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void listenRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listenRadioButtonActionPerformed
         setMode(evt);        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_listenRadioButtonActionPerformed
 
     private void setMode(java.awt.event.ActionEvent evt) {
-        if (jRadioButton1.isSelected()) {
+        if (practiceRadioButton.isSelected()) {
             mode = Mode.PRACTICE;
             enablePracticeMode();
-        } else if (jRadioButton2.isSelected()) {
+        } else if (listenRadioButton.isSelected()) {
             mode = Mode.LISTEN;
             enableListenMode();
-        } else if (jRadioButton3.isSelected()) {
+        } else if (testingRadioButton.isSelected()) {
             mode = Mode.TESTING;
             enableTestingMode();
         }
@@ -398,15 +396,25 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void enablePracticeMode() {
         System.out.println("Practice Mode.");
+        this.immediatePlayCheckbox.setEnabled(true);
+        this.immediatePlayCheckbox.setSelected(false);
+        this.currentLetterText.setVisible(true);
+
     }
 
     private void enableListenMode() {
         System.out.println("Listen Mode.");
+        this.immediatePlayCheckbox.setEnabled(false);
+        this.immediatePlayCheckbox.setSelected(false);
+        this.currentLetterText.setVisible(true);
 
     }
 
     private void enableTestingMode() {
         System.out.println("Testing Mode.");
+        this.immediatePlayCheckbox.setEnabled(false);
+        this.immediatePlayCheckbox.setSelected(false);
+        this.currentLetterText.setVisible(false);
     }
 
     /**
@@ -450,19 +458,19 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextArea currentLetterText;
     private javax.swing.JLabel gpmSendLabel;
+    private javax.swing.JSlider gpmSlider;
     private javax.swing.JLabel hzValueLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox immediatePlayCheckbox;
+    private javax.swing.JTextArea inputTextArea;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSlider jSlider1;
-    private javax.swing.JSlider jSlider2;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JRadioButton listenRadioButton;
+    private javax.swing.JButton playButton;
+    private javax.swing.JRadioButton practiceRadioButton;
+    private javax.swing.JRadioButton testingRadioButton;
+    private javax.swing.JSlider toneFrequencySlider;
     // End of variables declaration//GEN-END:variables
 }
