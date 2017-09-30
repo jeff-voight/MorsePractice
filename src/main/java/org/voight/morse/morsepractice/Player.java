@@ -5,6 +5,7 @@
  */
 package org.voight.morse.morsepractice;
 
+import java.util.logging.Logger;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
@@ -18,13 +19,26 @@ public class Player {
 
     static AudioFormat af;
     static SourceDataLine sdl;
+    public static Logger log = Logger.getLogger(Player.class.getName());
+
+    public Player() throws LineUnavailableException {
+        this(44100);
+        log.info("Default constructor. Calling custom with 44100.");
+    }
 
     public Player(int _frequency) throws LineUnavailableException {
-        sdl = AudioSystem.getSourceDataLine(af);
         af = new AudioFormat(_frequency, 8, 1, true, false);
+        sdl = AudioSystem.getSourceDataLine(af);
+    }
+
+    public void playTone(Symbol _s) throws LineUnavailableException {
+        playTone(_s.getBytes());
     }
 
     public void playTone(byte[] byteArray) throws LineUnavailableException {
+        log.info("Playing tone. byteArray is " + byteArray.length + " bytes.");
+                sdl = AudioSystem.getSourceDataLine(af);
+
         sdl.open(af);
         sdl.start();
         for (int i = 0; i < byteArray.length; i++) {

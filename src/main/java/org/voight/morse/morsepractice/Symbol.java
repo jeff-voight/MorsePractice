@@ -24,66 +24,81 @@ public class Symbol {
     private int ditPause;
     private int dahPause;
 
-    Tone t ;
+    Tone t;
 
-    byte[] tone=new byte[0];
+    byte[] tone = new byte[0];
 
-    /**
-     * Instantiates a Symbol with the Morse Code symbol represented by the bits
-     * in the parameter.
-     *
-     * @throws javax.sound.sampled.LineUnavailableException
-     * @see https://en.wikipedia.org/wiki/Morse_code
-     * @param _code A bitwise Morse Code where 0 represents dit and 1 represents
-     * dah.
-     * @param _speed Symbols per minute rate for this symbol
-     */
-    public Symbol(int _code, int _speed) throws LineUnavailableException {
+//    /**
+//     * Instantiates a Symbol with the Morse Code symbol represented by the bits
+//     * in the parameter.
+//     *
+//     * @throws javax.sound.sampled.LineUnavailableException
+//     * @see https://en.wikipedia.org/wiki/Morse_code
+//     * @param _code A bitwise Morse Code where 0 represents dit and 1 represents
+//     * dah.
+//     * @param _speed Symbols per minute rate for this symbol
+//     */
+//    public Symbol(int _code, int _speed) throws LineUnavailableException {
+//        setDurations(_speed);
+//        t = new Tone();
+//        String display = "";
+//        for (int i = 0; i < 5; i++) {
+//            int bit = (int) Math.pow(2, i);
+//            if ((_code & bit) == 0) {
+//                tone = addTone(DIT);
+//                tone = addPause(DIT);
+//                display = display.concat("0");
+//            } else {
+//                tone = addTone(DAH);
+//                tone = addPause(DIT);
+//                display = display.concat("1");
+//            }
+//        }
+//        tone = addPause(DAH);
+//        log.info(display);
+//        log.info("The array is now " + tone.length + " bytes long.");
+//    }
+    public Symbol(String _code, int _speed) throws LineUnavailableException {
         setDurations(_speed);
-        t= new Tone();
-        String display = "";
-        for (int i = 0; i < 5; i++) {
-            int bit = (int) Math.pow(2, i);
-            if ((_code & bit) == 0) {
-                tone=addTone(DIT);
-                display = display.concat("0");
-            } else {
-                tone=addTone(DAH);
-                display = display.concat("1");
-            }
-        }
-        log.info(display);
-        log.info("The array is now "+tone.length+" bytes long.");
-    }
+        t = new Tone();
 
-    public Symbol(String _code, int _speed) {
         String display = "";
-        for (int i = 0; i < 5; i++) {
-            int bit = Integer.parseInt("" + _code.charAt(i));
-            if (bit == 0) {
-                display = display.concat("0");
-            } else {
-                display = display.concat("1");
+        log.info("Code: " + _code);
+        int strLen = _code.length();
+        if (!" ".equals(_code)) {
+            for (int i = 0; i < strLen; i++) {
+                int bit = Integer.parseInt("" + _code.charAt(i));
+                if (bit == 0) {
+                    tone = addTone(DIT);
+                    tone = addPause(DIT);
+                    display = display.concat("0");
+                } else {
+                    tone = addTone(DAH);
+                    tone = addPause(DIT);
+                    display = display.concat("1");
+                }
             }
         }
+        tone = addPause(DAH);
+
         log.info(display);
     }
 
     private byte[] addTone(int _longOrShort) {
-        int bytelen=tone.length;
-        byte[] newbytes=t.getTone(700, (_longOrShort==DIT?ditDuration:dahDuration));
-        byte[] returnBytes=new byte[bytelen+newbytes.length];
-        System.arraycopy(returnBytes, 0, tone, 0, bytelen);
-        System.arraycopy(returnBytes, bytelen, newbytes, 0, newbytes.length);
+        int bytelen = tone.length;
+        byte[] newbytes = t.getTone(700, (_longOrShort == DIT ? ditDuration : dahDuration));
+        byte[] returnBytes = new byte[bytelen + newbytes.length];
+        System.arraycopy(tone, 0, returnBytes, 0, bytelen);
+        System.arraycopy(newbytes, 0, returnBytes, bytelen, newbytes.length);
         return returnBytes;
     }
-    
-    private byte[] addPause(int _longOrShort){
-        int bytelen=tone.length;
-        byte[] newbytes=t.getTone(00, (_longOrShort==DIT?ditDuration:dahDuration));
-        byte[] returnBytes=new byte[bytelen+newbytes.length];
-        System.arraycopy(returnBytes, 0, tone, 0, bytelen);
-        System.arraycopy(returnBytes, bytelen, newbytes, 0, newbytes.length);
+
+    private byte[] addPause(int _longOrShort) {
+        int bytelen = tone.length;
+        byte[] newbytes = t.getTone(00, (_longOrShort == DIT ? ditDuration : dahDuration));
+        byte[] returnBytes = new byte[bytelen + newbytes.length];
+        System.arraycopy(tone, 0, returnBytes, 0, bytelen);
+        System.arraycopy(newbytes, 0, returnBytes, bytelen, newbytes.length);
         return returnBytes;
     }
 
@@ -112,6 +127,10 @@ public class Symbol {
         dahDuration = ditDuration * 3;
         ditPause = ditDuration;
         dahPause = dahDuration;
+    }
+
+    public byte[] getBytes() {
+        return tone;
     }
 
 }
