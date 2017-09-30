@@ -7,6 +7,7 @@ package org.voight.morse.morsepractice;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.LineUnavailableException;
 
 /**
  *
@@ -22,10 +23,15 @@ public class MorsePractice {
     
     public static void main(String argv[]){
         MorsePractice m=new MorsePractice();
-        m.run();
+        try {
+            m.run();
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(MorsePractice.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-    private void run(){
-        Symbol s=new Symbol(5, 12);
+    private void run() throws LineUnavailableException{
+        Symbol s=new Symbol(1, 12);
+        Symbol s1=new Symbol(127, 12);
     }
 }

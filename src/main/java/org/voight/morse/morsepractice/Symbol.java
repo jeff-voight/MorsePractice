@@ -5,8 +5,8 @@
  */
 package org.voight.morse.morsepractice;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.LineUnavailableException;
 
 /**
  *
@@ -20,38 +20,42 @@ public class Symbol {
 
     private int symbolDuration; // Duration in milliseconds
     private int ditDuration; // 
-    private int dahDuration=3*ditDuration; // Three times as long
-    private int ditPause=ditDuration;
-    private int dahPause=dahDuration;
-    
-    
-    byte[] tone;
+    private int dahDuration; // Three times as long
+    private int ditPause;
+    private int dahPause;
+
+    Tone t ;
+
+    byte[] tone=new byte[0];
 
     /**
      * Instantiates a Symbol with the Morse Code symbol represented by the bits
      * in the parameter.
      *
+     * @throws javax.sound.sampled.LineUnavailableException
      * @see https://en.wikipedia.org/wiki/Morse_code
      * @param _code A bitwise Morse Code where 0 represents dit and 1 represents
      * dah.
      * @param _speed Symbols per minute rate for this symbol
      */
-    public Symbol(int _code, int _speed) {
-        setDurations(_speed);     
+    public Symbol(int _code, int _speed) throws LineUnavailableException {
+        setDurations(_speed);
+        t= new Tone();
         String display = "";
         for (int i = 0; i < 5; i++) {
             int bit = (int) Math.pow(2, i);
             if ((_code & bit) == 0) {
+                tone=addTone(DIT);
                 display = display.concat("0");
             } else {
+                tone=addTone(DAH);
                 display = display.concat("1");
             }
         }
         log.info(display);
+        log.info("The array is now "+tone.length+" bytes long.");
     }
 
-    
-    
     public Symbol(String _code, int _speed) {
         String display = "";
         for (int i = 0; i < 5; i++) {
@@ -65,33 +69,49 @@ public class Symbol {
         log.info(display);
     }
 
-    private byte[] addTone(int _longOrShort, int _speed) {
-        int duration = 1 / _speed;
+    private byte[] addTone(int _longOrShort) {
+        int bytelen=tone.length;
+        byte[] newbytes=t.getTone(700, (_longOrShort==DIT?ditDuration:dahDuration));
+        byte[] returnBytes=new byte[bytelen+newbytes.length];
+        System.arraycopy(returnBytes, 0, tone, 0, bytelen);
+        System.arraycopy(returnBytes, bytelen, newbytes, 0, newbytes.length);
+        return returnBytes;
     }
     
-    private void setDurations(int _speed){
-        ditDuration=getDit(_speed);
-        dahDuration=ditDuration*3;
-        ditPause=ditDuration;
-        dahPause=dahDuration;
+    private byte[] addPause(int _longOrShort){
+        int bytelen=tone.length;
+        byte[] newbytes=t.getTone(00, (_longOrShort==DIT?ditDuration:dahDuration));
+        byte[] returnBytes=new byte[bytelen+newbytes.length];
+        System.arraycopy(returnBytes, 0, tone, 0, bytelen);
+        System.arraycopy(returnBytes, bytelen, newbytes, 0, newbytes.length);
+        return returnBytes;
     }
-    
+
     /**
-     * Gets the duration of a DIT pulse based on the Groups Per Minute
-     * Groups consist of 5 symbols each. The worst case scenario per symbol
-     * is DAH DAH DAH DAH DAH plus a pause.
+     * Gets the duration of a DIT pulse based on the Groups Per Minute Groups
+     * consist of 5 symbols each. The worst case scenario per symbol is DAH DAH
+     * DAH DAH DAH plus a pause.
+     *
      * @param _gpm
-     * @return 
+     * @return
      */
-    private int getDit(int _gpm){
-        double longest=60.0/(_gpm*5); // The longest duration a symbol can be at this rate in seconds
+    private int getDit(int _gpm) {
+        double longest = 60.0 / (_gpm * 5); // The longest duration a symbol can be at this rate in seconds
         // The longest symbol possible is 5 DAHs in a row plus a DAH pause at the end.
         // Including the DIT pauses between DITs and DAHs, that makes
         // 6*DAH + 4*DIT. Each DAH is 3*DIT. This means that the longest symbol is 
         // 3 * 6 * DAH + 4 * DIT = (18 + 4) * DIT or 22*DIT.
         // Therefore, a DIT is longest/22.
-        int dit=(int)(longest*1000/22); // Convert to milliseconds while we're here
-        log.info("At "+_gpm+"GPM, DIT is "+dit+" milliseconds.");
-        return dit;        
+        int dit = (int) (longest * 1000 / 22); // Convert to milliseconds while we're here
+        log.info("At " + _gpm + "GPM, DIT is " + dit + " milliseconds.");
+        return dit;
     }
+
+    private void setDurations(int _speed) {
+        ditDuration = getDit(_speed);
+        dahDuration = ditDuration * 3;
+        ditPause = ditDuration;
+        dahPause = dahDuration;
+    }
+
 }
