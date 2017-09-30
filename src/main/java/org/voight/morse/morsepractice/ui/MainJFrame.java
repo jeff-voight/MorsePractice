@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.LineUnavailableException;
+import javax.swing.SwingWorker;
 import org.voight.morse.morsepractice.MorsePlayer;
 
 /**
@@ -22,6 +23,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private int frequency = 44100, hz = 700, gpm = 10;
     //practice listen testing
     private Mode mode = Mode.PRACTICE;
+    private boolean playing = false;
 
     public enum Mode {
         PRACTICE,
@@ -259,12 +261,40 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        String theText = jTextArea1.getText();
-        System.out.println("Text: " + theText);
-        int strLen = theText.length();
-        for (int i = 0; i < strLen; i++) {
-            play(theText.charAt(i));
+        if (playing) {
+            playing = false;
+            jButton1.setText("Play");
+        } else {
+            playing = true;
+            jButton1.setText("STOP");
+            String theText = jTextArea1.getText();
+            System.out.println("Text: " + theText);
+            class Player extends SwingWorker<String, String>{
+                @Override
+                public String doInBackground(){
+                    int strLen = theText.length();
+                    for (int i = 0; i < strLen&&playing; i++) {                        
+                            play(theText.charAt(i));                        
+                    }
+                    return "";
+                }
+                
+                @Override
+                protected void done() {
+                    playing=false;
+                    jButton1.setText("Play");
+
+                }
+            }
+            (new Player()).execute();
+//            int strLen = theText.length();
+//            for (int i = 0; i < strLen; i++) {
+//                play(theText.charAt(i));
+//            }
+            
+
         }
+
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -351,18 +381,19 @@ public class MainJFrame extends javax.swing.JFrame {
         }
     }
 
-    private void enablePracticeMode(){
+    private void enablePracticeMode() {
         System.out.println("Practice Mode.");
     }
-    
-    private void enableListenMode(){
+
+    private void enableListenMode() {
         System.out.println("Listen Mode.");
-        
+
     }
-    
-    private void enableTestingMode(){
+
+    private void enableTestingMode() {
         System.out.println("Testing Mode.");
     }
+
     /**
      * @param args the command line arguments
      */
