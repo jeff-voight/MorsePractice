@@ -16,18 +16,28 @@ import org.voight.morse.morsepractice.MorsePlayer;
  * @author Jeffrey Voight <jeff.voight@gmail.com>
  */
 public class MainJFrame extends javax.swing.JFrame {
-    private boolean immediatePlay=false;
+
+    private boolean immediatePlay = false;
     private MorsePlayer morsePlayer;
-    private int frequency=44100, hz=700, gpm=10;
-    
+    private int frequency = 44100, hz = 700, gpm = 10;
+    //practice listen testing
+    private Mode mode = Mode.PRACTICE;
+
+    public enum Mode {
+        PRACTICE,
+        LISTEN,
+        TESTING;
+    }
+
     /**
      * Creates new form MainJFrame
+     *
      * @throws java.io.IOException
      * @throws javax.sound.sampled.LineUnavailableException
      */
     public MainJFrame() throws IOException, LineUnavailableException {
         initComponents();
-        morsePlayer=new MorsePlayer(frequency, hz, gpm);
+        morsePlayer = new MorsePlayer(frequency, hz, gpm);
     }
 
     /**
@@ -139,14 +149,29 @@ public class MainJFrame extends javax.swing.JFrame {
         jRadioButton1.setSelected(true);
         jRadioButton1.setText("Practice Mode");
         jRadioButton1.setToolTipText("You type code to be played back");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Listen Mode");
         jRadioButton2.setToolTipText("Plays random code and displays it");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setText("Testing Mode");
         jRadioButton3.setToolTipText("Plays code while you enter your guesses");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
 
         currentLetterText.setColumns(1);
         currentLetterText.setFont(new java.awt.Font("Arial", 0, 160)); // NOI18N
@@ -226,7 +251,7 @@ public class MainJFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(396, 396, 396))
+                .addGap(100, 100, 100))
         );
 
         pack();
@@ -234,10 +259,10 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        String theText=jTextArea1.getText();
-        System.out.println("Text: "+theText);
-        int strLen=theText.length();
-        for(int i=0;i<strLen;i++){
+        String theText = jTextArea1.getText();
+        System.out.println("Text: " + theText);
+        int strLen = theText.length();
+        for (int i = 0; i < strLen; i++) {
             play(theText.charAt(i));
         }
     }//GEN-LAST:event_jButton1MouseClicked
@@ -249,29 +274,29 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        if(jCheckBox1.isSelected()){
-            immediatePlay=true;
+        if (jCheckBox1.isSelected()) {
+            immediatePlay = true;
         } else {
-            immediatePlay=false;
+            immediatePlay = false;
         }
 
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
-    private void play(char c){
-        try{
-            currentLetterText.setText(""+Character.toUpperCase(c));
+    private void play(char c) {
+        try {
+            currentLetterText.setText("" + Character.toUpperCase(c));
 //            currentLetterText.repaint(20);
 //            currentLetterText.revalidate();
             super.paintComponents(this.getGraphics());
             morsePlayer.play(c);
-        } catch(LineUnavailableException ex){
+        } catch (LineUnavailableException ex) {
             Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
-        if(immediatePlay){
-            Character c=evt.getKeyChar();
+        if (immediatePlay) {
+            Character c = evt.getKeyChar();
             play(c);
             System.out.println(c);
         }
@@ -279,10 +304,10 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextArea1KeyTyped
 
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
-        gpm=jSlider1.getValue();
-        gpmSendLabel.setText(gpm+" GPM");
+        gpm = jSlider1.getValue();
+        gpmSendLabel.setText(gpm + " GPM");
         try {
-            morsePlayer=new MorsePlayer(frequency, hz, gpm);
+            morsePlayer = new MorsePlayer(frequency, hz, gpm);
             // TODO add your handling code here:
         } catch (IOException | LineUnavailableException ex) {
             Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -290,17 +315,54 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jSlider1StateChanged
 
     private void jSlider2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider2StateChanged
-        int toneHz=jSlider2.getValue();
-        hz=toneHz;
+        int toneHz = jSlider2.getValue();
+        hz = toneHz;
         try {
-            morsePlayer=new MorsePlayer(frequency, hz, gpm);
+            morsePlayer = new MorsePlayer(frequency, hz, gpm);
         } catch (IOException | LineUnavailableException ex) {
             Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        hzValueLabel.setText(hz+" Hz");
+        hzValueLabel.setText(hz + " Hz");
         // TODO add your handling code here:
     }//GEN-LAST:event_jSlider2StateChanged
 
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        setMode(evt);        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        setMode(evt);        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        setMode(evt);        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void setMode(java.awt.event.ActionEvent evt) {
+        if (jRadioButton1.isSelected()) {
+            mode = Mode.PRACTICE;
+            enablePracticeMode();
+        } else if (jRadioButton2.isSelected()) {
+            mode = Mode.LISTEN;
+            enableListenMode();
+        } else if (jRadioButton3.isSelected()) {
+            mode = Mode.TESTING;
+            enableTestingMode();
+        }
+    }
+
+    private void enablePracticeMode(){
+        System.out.println("Practice Mode.");
+    }
+    
+    private void enableListenMode(){
+        System.out.println("Listen Mode.");
+        
+    }
+    
+    private void enableTestingMode(){
+        System.out.println("Testing Mode.");
+    }
     /**
      * @param args the command line arguments
      */
