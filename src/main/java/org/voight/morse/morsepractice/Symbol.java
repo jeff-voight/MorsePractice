@@ -14,21 +14,68 @@ import javax.sound.sampled.LineUnavailableException;
  */
 public class Symbol {
 
+    /**
+     *
+     */
     protected static int DIT = 0;
+
+    /**
+     *
+     */
     protected static int DAH = 1;
+
+    /**
+     *
+     */
     protected static Logger log = Logger.getLogger(Symbol.class.getName());
 
+    /**
+     *
+     */
     protected int symbolDuration; // Duration in milliseconds
+
+    /**
+     *
+     */
     protected int ditDuration; // 
+
+    /**
+     *
+     */
     protected int dahDuration; // Three times as long
+
+    /**
+     *
+     */
     protected int ditPause;
+
+    /**
+     *
+     */
     protected int dahPause;
+
+    /**
+     *
+     */
     protected int hz=700;
+
+    /**
+     *
+     */
     protected Tone t;
 
+    /**
+     *
+     */
     protected byte[] tone = new byte[0];
 
-
+    /**
+     *
+     * @param _code
+     * @param _hz
+     * @param _speed
+     * @throws LineUnavailableException
+     */
     public Symbol(String _code, int _hz, int _speed) throws LineUnavailableException {
         setDurations(_speed);
         setHz(_hz);
@@ -56,6 +103,10 @@ public class Symbol {
         // log.info(display);
     }
 
+    /**
+     *
+     * @param _hz
+     */
     final public void setHz(int _hz){
         if(_hz>1000){
             log.severe("You've selected a tone Hz greater than 1000. RIP your hearing.");
@@ -65,7 +116,7 @@ public class Symbol {
     
     private byte[] addTone(int _longOrShort) {
         int bytelen = tone.length;
-        byte[] newbytes = t.getTone(hz, (_longOrShort == DIT ? ditDuration : dahDuration));
+        byte[] newbytes = t.getSineWave(hz, (_longOrShort == DIT ? ditDuration : dahDuration));
         byte[] returnBytes = new byte[bytelen + newbytes.length];
         System.arraycopy(tone, 0, returnBytes, 0, bytelen);
         System.arraycopy(newbytes, 0, returnBytes, bytelen, newbytes.length);
@@ -74,7 +125,7 @@ public class Symbol {
 
     private byte[] addPause(int _longOrShort) {
         int bytelen = tone.length;
-        byte[] newbytes = t.getTone(00, (_longOrShort == DIT ? ditDuration : dahDuration));
+        byte[] newbytes = t.getSineWave(00, (_longOrShort == DIT ? ditDuration : dahDuration));
         byte[] returnBytes = new byte[bytelen + newbytes.length];
         System.arraycopy(tone, 0, returnBytes, 0, bytelen);
         System.arraycopy(newbytes, 0, returnBytes, bytelen, newbytes.length);
@@ -108,6 +159,10 @@ public class Symbol {
         dahPause = dahDuration;
     }
 
+    /**
+     *
+     * @return
+     */
     public byte[] getBytes() {
         return tone;
     }
