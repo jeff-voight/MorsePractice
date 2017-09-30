@@ -26,7 +26,6 @@ public class MorsePractice {
     }
     
     private void run(){
-        Symbol s=new Symbol(5, 5);
-        Symbol s1=new Symbol("01100", 5);
+        Symbol s=new Symbol(5, 12);
     }
 }
