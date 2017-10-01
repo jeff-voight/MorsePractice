@@ -65,22 +65,32 @@ public class MainJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        inputTextArea = new javax.swing.JTextArea();
         playButton = new javax.swing.JButton();
-        immediatePlayCheckbox = new javax.swing.JCheckBox();
-        gpmSlider = new javax.swing.JSlider();
-        jLabel2 = new javax.swing.JLabel();
-        gpmSendLabel = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        toneFrequencySlider = new javax.swing.JSlider();
-        hzValueLabel = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        currentLetterText = new javax.swing.JTextArea();
+        codePanel = new javax.swing.JPanel();
+        canvas1 = new java.awt.Canvas();
+        groupCountPanel = new javax.swing.JPanel();
+        groupCountLabel = new javax.swing.JLabel();
+        groupCountSlider = new javax.swing.JSlider();
+        groupLabel = new javax.swing.JLabel();
+        modePanel = new javax.swing.JPanel();
         practiceRadioButton = new javax.swing.JRadioButton();
         listenRadioButton = new javax.swing.JRadioButton();
         testingRadioButton = new javax.swing.JRadioButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        currentLetterText = new javax.swing.JTextArea();
+        textInputPanel = new javax.swing.JPanel();
+        textInputLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        inputTextArea = new javax.swing.JTextArea();
+        immediatePlayCheckbox = new javax.swing.JCheckBox();
+        toneFrequencyPanel = new javax.swing.JPanel();
+        toneFrequencyLabel = new javax.swing.JLabel();
+        toneFrequencySlider = new javax.swing.JSlider();
+        toneFrequencyNumberLabel = new javax.swing.JLabel();
+        codeSpeedPanel = new javax.swing.JPanel();
+        codeSpeedLabel = new javax.swing.JLabel();
+        codeSpeedNumberLabel = new javax.swing.JLabel();
+        gpmSlider = new javax.swing.JSlider();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -89,23 +99,6 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Text Input");
-        jLabel1.setToolTipText("");
-
-        jScrollPane1.setToolTipText("Enter text here and click Play");
-        jScrollPane1.setViewportBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jScrollPane1.setName("inputText"); // NOI18N
-
-        inputTextArea.setColumns(15);
-        inputTextArea.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        inputTextArea.setRows(5);
-        inputTextArea.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                inputTextAreaKeyTyped(evt);
-            }
-        });
-        jScrollPane1.setViewportView(inputTextArea);
-
         playButton.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         playButton.setLabel("Play");
         playButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -113,52 +106,75 @@ public class MainJFrame extends javax.swing.JFrame {
                 playButtonMouseClicked(evt);
             }
         });
-
-        immediatePlayCheckbox.setText("Immediate Play");
-        immediatePlayCheckbox.addActionListener(new java.awt.event.ActionListener() {
+        playButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                immediatePlayCheckboxActionPerformed(evt);
+                playButtonActionPerformed(evt);
             }
         });
 
-        gpmSlider.setMajorTickSpacing(3);
-        gpmSlider.setMaximum(30);
-        gpmSlider.setMinimum(3);
-        gpmSlider.setMinorTickSpacing(1);
-        gpmSlider.setPaintLabels(true);
-        gpmSlider.setPaintTicks(true);
-        gpmSlider.setSnapToTicks(true);
-        gpmSlider.setToolTipText("Set to the GPM you wish to hear");
-        gpmSlider.setValue(10);
-        gpmSlider.setName("gpmSlider"); // NOI18N
-        gpmSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                gpmSliderStateChanged(evt);
-            }
-        });
+        currentLetterText.setColumns(1);
+        currentLetterText.setFont(new java.awt.Font("Arial", 0, 160)); // NOI18N
+        currentLetterText.setRows(1);
+        currentLetterText.setFocusable(false);
+        jScrollPane2.setViewportView(currentLetterText);
 
-        jLabel2.setText("Code Speed");
+        canvas1.setBackground(new java.awt.Color(255, 255, 204));
 
-        gpmSendLabel.setText("10 gpm");
-        gpmSendLabel.setName("gpmText"); // NOI18N
+        javax.swing.GroupLayout codePanelLayout = new javax.swing.GroupLayout(codePanel);
+        codePanel.setLayout(codePanelLayout);
+        codePanelLayout.setHorizontalGroup(
+            codePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 633, Short.MAX_VALUE)
+            .addGroup(codePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(codePanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(canvas1, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        codePanelLayout.setVerticalGroup(
+            codePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 137, Short.MAX_VALUE)
+            .addGroup(codePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(codePanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(canvas1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
 
-        jLabel3.setText("Tone Frequency");
+        groupCountLabel.setText("10 Groups");
 
-        toneFrequencySlider.setMajorTickSpacing(100);
-        toneFrequencySlider.setMaximum(1000);
-        toneFrequencySlider.setMinimum(300);
-        toneFrequencySlider.setMinorTickSpacing(50);
-        toneFrequencySlider.setPaintLabels(true);
-        toneFrequencySlider.setPaintTicks(true);
-        toneFrequencySlider.setToolTipText("");
-        toneFrequencySlider.setValue(700);
-        toneFrequencySlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                toneFrequencySliderStateChanged(evt);
-            }
-        });
+        groupCountSlider.setMajorTickSpacing(5);
+        groupCountSlider.setMaximum(20);
+        groupCountSlider.setMinimum(1);
+        groupCountSlider.setMinorTickSpacing(1);
+        groupCountSlider.setPaintLabels(true);
+        groupCountSlider.setPaintTicks(true);
+        groupCountSlider.setToolTipText("");
+        groupCountSlider.setValue(10);
 
-        hzValueLabel.setText("700 Hz");
+        groupLabel.setText("Groups");
+
+        javax.swing.GroupLayout groupCountPanelLayout = new javax.swing.GroupLayout(groupCountPanel);
+        groupCountPanel.setLayout(groupCountPanelLayout);
+        groupCountPanelLayout.setHorizontalGroup(
+            groupCountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(groupCountPanelLayout.createSequentialGroup()
+                .addComponent(groupLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(groupCountLabel)
+                .addContainerGap())
+            .addComponent(groupCountSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        groupCountPanelLayout.setVerticalGroup(
+            groupCountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(groupCountPanelLayout.createSequentialGroup()
+                .addGroup(groupCountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(groupCountLabel)
+                    .addComponent(groupLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(groupCountSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
+        );
 
         buttonGroup1.add(practiceRadioButton);
         practiceRadioButton.setSelected(true);
@@ -188,85 +204,217 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        currentLetterText.setColumns(1);
-        currentLetterText.setFont(new java.awt.Font("Arial", 0, 160)); // NOI18N
-        currentLetterText.setRows(1);
-        currentLetterText.setFocusable(false);
-        jScrollPane2.setViewportView(currentLetterText);
+        javax.swing.GroupLayout modePanelLayout = new javax.swing.GroupLayout(modePanel);
+        modePanel.setLayout(modePanelLayout);
+        modePanelLayout.setHorizontalGroup(
+            modePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(modePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(listenRadioButton)
+                    .addComponent(testingRadioButton)
+                    .addComponent(practiceRadioButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        modePanelLayout.setVerticalGroup(
+            modePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(practiceRadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(listenRadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(testingRadioButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        textInputLabel.setText("Text Input");
+        textInputLabel.setToolTipText("");
+
+        jScrollPane1.setToolTipText("Enter text here and click Play");
+        jScrollPane1.setViewportBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPane1.setName("inputText"); // NOI18N
+
+        inputTextArea.setColumns(15);
+        inputTextArea.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        inputTextArea.setRows(5);
+        inputTextArea.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                inputTextAreaKeyTyped(evt);
+            }
+        });
+        jScrollPane1.setViewportView(inputTextArea);
+
+        immediatePlayCheckbox.setText("Immediate Play");
+        immediatePlayCheckbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                immediatePlayCheckboxActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout textInputPanelLayout = new javax.swing.GroupLayout(textInputPanel);
+        textInputPanel.setLayout(textInputPanelLayout);
+        textInputPanelLayout.setHorizontalGroup(
+            textInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(textInputPanelLayout.createSequentialGroup()
+                .addGroup(textInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(textInputPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(textInputLabel)
+                        .addGap(64, 64, 64)
+                        .addComponent(immediatePlayCheckbox))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 17, Short.MAX_VALUE))
+        );
+        textInputPanelLayout.setVerticalGroup(
+            textInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, textInputPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(textInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textInputLabel)
+                    .addComponent(immediatePlayCheckbox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        toneFrequencyLabel.setText("Tone Frequency");
+
+        toneFrequencySlider.setMajorTickSpacing(100);
+        toneFrequencySlider.setMaximum(1000);
+        toneFrequencySlider.setMinimum(300);
+        toneFrequencySlider.setMinorTickSpacing(50);
+        toneFrequencySlider.setPaintLabels(true);
+        toneFrequencySlider.setPaintTicks(true);
+        toneFrequencySlider.setToolTipText("");
+        toneFrequencySlider.setValue(700);
+        toneFrequencySlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                toneFrequencySliderStateChanged(evt);
+            }
+        });
+
+        toneFrequencyNumberLabel.setText("700 Hz");
+
+        javax.swing.GroupLayout toneFrequencyPanelLayout = new javax.swing.GroupLayout(toneFrequencyPanel);
+        toneFrequencyPanel.setLayout(toneFrequencyPanelLayout);
+        toneFrequencyPanelLayout.setHorizontalGroup(
+            toneFrequencyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toneFrequencyPanelLayout.createSequentialGroup()
+                .addGroup(toneFrequencyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(toneFrequencyPanelLayout.createSequentialGroup()
+                        .addComponent(toneFrequencyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(toneFrequencyNumberLabel))
+                    .addComponent(toneFrequencySlider, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        toneFrequencyPanelLayout.setVerticalGroup(
+            toneFrequencyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, toneFrequencyPanelLayout.createSequentialGroup()
+                .addGroup(toneFrequencyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(toneFrequencyLabel)
+                    .addComponent(toneFrequencyNumberLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(toneFrequencySlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        codeSpeedLabel.setText("Code Speed");
+
+        codeSpeedNumberLabel.setText("10 gpm");
+        codeSpeedNumberLabel.setName("gpmText"); // NOI18N
+
+        gpmSlider.setMajorTickSpacing(3);
+        gpmSlider.setMaximum(30);
+        gpmSlider.setMinimum(3);
+        gpmSlider.setMinorTickSpacing(1);
+        gpmSlider.setPaintLabels(true);
+        gpmSlider.setPaintTicks(true);
+        gpmSlider.setSnapToTicks(true);
+        gpmSlider.setToolTipText("Set to the GPM you wish to hear");
+        gpmSlider.setValue(10);
+        gpmSlider.setName("gpmSlider"); // NOI18N
+        gpmSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                gpmSliderStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout codeSpeedPanelLayout = new javax.swing.GroupLayout(codeSpeedPanel);
+        codeSpeedPanel.setLayout(codeSpeedPanelLayout);
+        codeSpeedPanelLayout.setHorizontalGroup(
+            codeSpeedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(codeSpeedPanelLayout.createSequentialGroup()
+                .addComponent(codeSpeedLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(codeSpeedNumberLabel)
+                .addContainerGap())
+            .addGroup(codeSpeedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(gpmSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
+        );
+        codeSpeedPanelLayout.setVerticalGroup(
+            codeSpeedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(codeSpeedPanelLayout.createSequentialGroup()
+                .addGroup(codeSpeedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(codeSpeedLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+                    .addComponent(codeSpeedNumberLabel))
+                .addContainerGap(60, Short.MAX_VALUE))
+            .addGroup(codeSpeedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(codeSpeedPanelLayout.createSequentialGroup()
+                    .addGap(23, 23, 23)
+                    .addComponent(gpmSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(practiceRadioButton)
-                    .addComponent(testingRadioButton)
-                    .addComponent(listenRadioButton)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(playButton)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(immediatePlayCheckbox))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(77, 77, 77)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(gpmSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(gpmSendLabel))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(hzValueLabel))
-                                    .addComponent(toneFrequencySlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                            .addComponent(textInputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(modePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(toneFrequencyPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(codeSpeedPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(groupCountPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(16, 16, 16)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(playButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                        .addComponent(codePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(practiceRadioButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(listenRadioButton)
+                        .addContainerGap()
+                        .addComponent(modePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(testingRadioButton)
+                        .addComponent(textInputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(gpmSendLabel)
-                                    .addComponent(immediatePlayCheckbox)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(gpmSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(hzValueLabel))
+                                .addComponent(groupCountPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(toneFrequencySlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(playButton)
-                .addGap(100, 100, 100))
+                                .addComponent(codeSpeedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(toneFrequencyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(playButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(codePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -348,7 +496,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void gpmSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_gpmSliderStateChanged
         gpm = gpmSlider.getValue();
-        gpmSendLabel.setText(gpm + " GPM");
+        codeSpeedNumberLabel.setText(gpm + " GPM");
         try {
             morsePlayer = new MorsePlayer(frequency, hz, gpm);
             // TODO add your handling code here:
@@ -365,7 +513,7 @@ public class MainJFrame extends javax.swing.JFrame {
         } catch (IOException | LineUnavailableException ex) {
             Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        hzValueLabel.setText(hz + " Hz");
+        toneFrequencyNumberLabel.setText(hz + " Hz");
         // TODO add your handling code here:
     }//GEN-LAST:event_toneFrequencySliderStateChanged
 
@@ -380,6 +528,10 @@ public class MainJFrame extends javax.swing.JFrame {
     private void listenRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listenRadioButtonActionPerformed
         setMode(evt);        // TODO add your handling code here:
     }//GEN-LAST:event_listenRadioButtonActionPerformed
+
+    private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_playButtonActionPerformed
 
     private void setMode(java.awt.event.ActionEvent evt) {
         if (practiceRadioButton.isSelected()) {
@@ -399,6 +551,7 @@ public class MainJFrame extends javax.swing.JFrame {
         this.immediatePlayCheckbox.setEnabled(true);
         this.immediatePlayCheckbox.setSelected(false);
         this.currentLetterText.setVisible(true);
+        this.inputTextArea.requestFocus();
 
     }
 
@@ -456,21 +609,31 @@ public class MainJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private java.awt.Canvas canvas1;
+    private javax.swing.JPanel codePanel;
+    private javax.swing.JLabel codeSpeedLabel;
+    private javax.swing.JLabel codeSpeedNumberLabel;
+    private javax.swing.JPanel codeSpeedPanel;
     private javax.swing.JTextArea currentLetterText;
-    private javax.swing.JLabel gpmSendLabel;
     private javax.swing.JSlider gpmSlider;
-    private javax.swing.JLabel hzValueLabel;
+    private javax.swing.JLabel groupCountLabel;
+    private javax.swing.JPanel groupCountPanel;
+    private javax.swing.JSlider groupCountSlider;
+    private javax.swing.JLabel groupLabel;
     private javax.swing.JCheckBox immediatePlayCheckbox;
     private javax.swing.JTextArea inputTextArea;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JRadioButton listenRadioButton;
+    private javax.swing.JPanel modePanel;
     private javax.swing.JButton playButton;
     private javax.swing.JRadioButton practiceRadioButton;
     private javax.swing.JRadioButton testingRadioButton;
+    private javax.swing.JLabel textInputLabel;
+    private javax.swing.JPanel textInputPanel;
+    private javax.swing.JLabel toneFrequencyLabel;
+    private javax.swing.JLabel toneFrequencyNumberLabel;
+    private javax.swing.JPanel toneFrequencyPanel;
     private javax.swing.JSlider toneFrequencySlider;
     // End of variables declaration//GEN-END:variables
 }
