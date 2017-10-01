@@ -38,6 +38,12 @@ public class MorsePracticePad extends javax.swing.JFrame {
         immediatePlayCheckBox = new javax.swing.JCheckBox();
         playButton = new javax.swing.JButton();
         controlsPanel = new javax.swing.JPanel();
+        groupsPanel = new javax.swing.JPanel();
+        groupLabel = new javax.swing.JLabel();
+        groupCountLabel = new javax.swing.JLabel();
+        groupSlider = new javax.swing.JSlider();
+        gpmPanel = new javax.swing.JPanel();
+        frequencyPanel = new javax.swing.JPanel();
         displayPanel = new javax.swing.JPanel();
         codeCanvas = new java.awt.Canvas();
         letterCanvas = new java.awt.Canvas();
@@ -129,20 +135,97 @@ public class MorsePracticePad extends javax.swing.JFrame {
                 .addComponent(inputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(playButton)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         controlsPanel.setBackground(new java.awt.Color(153, 255, 255));
+
+        groupsPanel.setPreferredSize(new java.awt.Dimension(500, 75));
+
+        groupLabel.setText("Group Count");
+        groupLabel.setToolTipText("");
+
+        groupCountLabel.setText("10 Groups");
+        groupCountLabel.setToolTipText("A Group is 5 symbols");
+
+        groupSlider.setMajorTickSpacing(5);
+        groupSlider.setMaximum(25);
+        groupSlider.setMinimum(1);
+        groupSlider.setMinorTickSpacing(1);
+        groupSlider.setPaintLabels(true);
+        groupSlider.setPaintTicks(true);
+        groupSlider.setSnapToTicks(true);
+        groupSlider.setValue(5);
+
+        javax.swing.GroupLayout groupsPanelLayout = new javax.swing.GroupLayout(groupsPanel);
+        groupsPanel.setLayout(groupsPanelLayout);
+        groupsPanelLayout.setHorizontalGroup(
+            groupsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(groupsPanelLayout.createSequentialGroup()
+                .addGroup(groupsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(groupsPanelLayout.createSequentialGroup()
+                        .addComponent(groupLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(groupCountLabel))
+                    .addGroup(groupsPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(groupSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        groupsPanelLayout.setVerticalGroup(
+            groupsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(groupsPanelLayout.createSequentialGroup()
+                .addGroup(groupsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(groupLabel)
+                    .addComponent(groupCountLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(groupSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
+        );
+
+        gpmPanel.setPreferredSize(new java.awt.Dimension(500, 75));
+
+        javax.swing.GroupLayout gpmPanelLayout = new javax.swing.GroupLayout(gpmPanel);
+        gpmPanel.setLayout(gpmPanelLayout);
+        gpmPanelLayout.setHorizontalGroup(
+            gpmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        gpmPanelLayout.setVerticalGroup(
+            gpmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 75, Short.MAX_VALUE)
+        );
+
+        frequencyPanel.setPreferredSize(new java.awt.Dimension(500, 75));
+
+        javax.swing.GroupLayout frequencyPanelLayout = new javax.swing.GroupLayout(frequencyPanel);
+        frequencyPanel.setLayout(frequencyPanelLayout);
+        frequencyPanelLayout.setHorizontalGroup(
+            frequencyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        frequencyPanelLayout.setVerticalGroup(
+            frequencyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 75, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout controlsPanelLayout = new javax.swing.GroupLayout(controlsPanel);
         controlsPanel.setLayout(controlsPanelLayout);
         controlsPanelLayout.setHorizontalGroup(
             controlsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(groupsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+            .addComponent(gpmPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+            .addComponent(frequencyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
         );
         controlsPanelLayout.setVerticalGroup(
             controlsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(controlsPanelLayout.createSequentialGroup()
+                .addComponent(groupsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(gpmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(frequencyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 26, Short.MAX_VALUE))
         );
 
         displayPanel.setBackground(new java.awt.Color(153, 153, 255));
@@ -159,7 +242,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(codeCanvas, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(letterCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(letterCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
                 .addContainerGap())
         );
         displayPanelLayout.setVerticalGroup(
@@ -167,7 +250,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, displayPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(displayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(letterCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(letterCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                     .addComponent(codeCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -245,6 +328,12 @@ public class MorsePracticePad extends javax.swing.JFrame {
     private java.awt.Canvas codeCanvas;
     private javax.swing.JPanel controlsPanel;
     private javax.swing.JPanel displayPanel;
+    private javax.swing.JPanel frequencyPanel;
+    private javax.swing.JPanel gpmPanel;
+    private javax.swing.JLabel groupCountLabel;
+    private javax.swing.JLabel groupLabel;
+    private javax.swing.JSlider groupSlider;
+    private javax.swing.JPanel groupsPanel;
     private javax.swing.JCheckBox immediatePlayCheckBox;
     private javax.swing.JTextField inputTextField;
     private java.awt.Canvas letterCanvas;
