@@ -43,7 +43,13 @@ public class MorsePracticePad extends javax.swing.JFrame {
         groupCountLabel = new javax.swing.JLabel();
         groupSlider = new javax.swing.JSlider();
         gpmPanel = new javax.swing.JPanel();
+        gpmLabel = new javax.swing.JLabel();
+        gpmCountLabel = new javax.swing.JLabel();
+        gpmSlider = new javax.swing.JSlider();
         frequencyPanel = new javax.swing.JPanel();
+        frequencyLabel = new javax.swing.JLabel();
+        frequencyCountLabel = new javax.swing.JLabel();
+        frequencySlider = new javax.swing.JSlider();
         displayPanel = new javax.swing.JPanel();
         codeCanvas = new java.awt.Canvas();
         letterCanvas = new java.awt.Canvas();
@@ -145,7 +151,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
         groupLabel.setText("Group Count");
         groupLabel.setToolTipText("");
 
-        groupCountLabel.setText("10 Groups");
+        groupCountLabel.setText("5 Groups");
         groupCountLabel.setToolTipText("A Group is 5 symbols");
 
         groupSlider.setMajorTickSpacing(5);
@@ -155,21 +161,20 @@ public class MorsePracticePad extends javax.swing.JFrame {
         groupSlider.setPaintLabels(true);
         groupSlider.setPaintTicks(true);
         groupSlider.setSnapToTicks(true);
+        groupSlider.setToolTipText("Adjusts the number of groups to test");
         groupSlider.setValue(5);
 
         javax.swing.GroupLayout groupsPanelLayout = new javax.swing.GroupLayout(groupsPanel);
         groupsPanel.setLayout(groupsPanelLayout);
         groupsPanelLayout.setHorizontalGroup(
             groupsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(groupsPanelLayout.createSequentialGroup()
-                .addGroup(groupsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, groupsPanelLayout.createSequentialGroup()
+                .addGroup(groupsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(groupSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(groupsPanelLayout.createSequentialGroup()
                         .addComponent(groupLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(groupCountLabel))
-                    .addGroup(groupsPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(groupSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)))
+                        .addComponent(groupCountLabel)))
                 .addContainerGap())
         );
         groupsPanelLayout.setVerticalGroup(
@@ -185,28 +190,86 @@ public class MorsePracticePad extends javax.swing.JFrame {
 
         gpmPanel.setPreferredSize(new java.awt.Dimension(500, 75));
 
+        gpmLabel.setText("Groups per Minute");
+        gpmLabel.setToolTipText("");
+
+        gpmCountLabel.setText("15 GPM");
+        gpmCountLabel.setToolTipText("A Group is 5 symbols");
+
+        gpmSlider.setMajorTickSpacing(5);
+        gpmSlider.setMaximum(40);
+        gpmSlider.setMinimum(5);
+        gpmSlider.setMinorTickSpacing(1);
+        gpmSlider.setPaintLabels(true);
+        gpmSlider.setPaintTicks(true);
+        gpmSlider.setSnapToTicks(true);
+        gpmSlider.setToolTipText("Adjusts the speed of the Morse Code");
+        gpmSlider.setValue(10);
+
         javax.swing.GroupLayout gpmPanelLayout = new javax.swing.GroupLayout(gpmPanel);
         gpmPanel.setLayout(gpmPanelLayout);
         gpmPanelLayout.setHorizontalGroup(
             gpmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gpmPanelLayout.createSequentialGroup()
+                .addGroup(gpmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(gpmSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(gpmPanelLayout.createSequentialGroup()
+                        .addComponent(gpmLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(gpmCountLabel)))
+                .addContainerGap())
         );
         gpmPanelLayout.setVerticalGroup(
             gpmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
+            .addGroup(gpmPanelLayout.createSequentialGroup()
+                .addGroup(gpmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(gpmLabel)
+                    .addComponent(gpmCountLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(gpmSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
         );
 
         frequencyPanel.setPreferredSize(new java.awt.Dimension(500, 75));
+
+        frequencyLabel.setText("Tone Frequency");
+        frequencyLabel.setToolTipText("");
+
+        frequencyCountLabel.setText("700 Hz");
+        frequencyCountLabel.setToolTipText("Standard is 700 Hz");
+
+        frequencySlider.setMajorTickSpacing(100);
+        frequencySlider.setMaximum(1000);
+        frequencySlider.setMinimum(500);
+        frequencySlider.setMinorTickSpacing(50);
+        frequencySlider.setPaintLabels(true);
+        frequencySlider.setPaintTicks(true);
+        frequencySlider.setSnapToTicks(true);
+        frequencySlider.setToolTipText("Adjusts the speed of the Morse Code");
+        frequencySlider.setValue(700);
 
         javax.swing.GroupLayout frequencyPanelLayout = new javax.swing.GroupLayout(frequencyPanel);
         frequencyPanel.setLayout(frequencyPanelLayout);
         frequencyPanelLayout.setHorizontalGroup(
             frequencyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, frequencyPanelLayout.createSequentialGroup()
+                .addGroup(frequencyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(frequencySlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(frequencyPanelLayout.createSequentialGroup()
+                        .addComponent(frequencyLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(frequencyCountLabel)))
+                .addContainerGap())
         );
         frequencyPanelLayout.setVerticalGroup(
             frequencyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
+            .addGroup(frequencyPanelLayout.createSequentialGroup()
+                .addGroup(frequencyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(frequencyLabel)
+                    .addComponent(frequencyCountLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(frequencySlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout controlsPanelLayout = new javax.swing.GroupLayout(controlsPanel);
@@ -242,7 +305,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(codeCanvas, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(letterCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                .addComponent(letterCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         displayPanelLayout.setVerticalGroup(
@@ -250,7 +313,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, displayPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(displayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(letterCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                    .addComponent(letterCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(codeCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -328,8 +391,14 @@ public class MorsePracticePad extends javax.swing.JFrame {
     private java.awt.Canvas codeCanvas;
     private javax.swing.JPanel controlsPanel;
     private javax.swing.JPanel displayPanel;
+    private javax.swing.JLabel frequencyCountLabel;
+    private javax.swing.JLabel frequencyLabel;
     private javax.swing.JPanel frequencyPanel;
+    private javax.swing.JSlider frequencySlider;
+    private javax.swing.JLabel gpmCountLabel;
+    private javax.swing.JLabel gpmLabel;
     private javax.swing.JPanel gpmPanel;
+    private javax.swing.JSlider gpmSlider;
     private javax.swing.JLabel groupCountLabel;
     private javax.swing.JLabel groupLabel;
     private javax.swing.JSlider groupSlider;
