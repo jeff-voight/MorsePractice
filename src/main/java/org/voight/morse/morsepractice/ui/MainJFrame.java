@@ -64,13 +64,14 @@ public class MainJFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         playButton = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        currentLetterText = new javax.swing.JTextArea();
         codePanel = new javax.swing.JPanel();
         canvas1 = new java.awt.Canvas();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        currentLetterText = new javax.swing.JTextArea();
         groupCountPanel = new javax.swing.JPanel();
         groupCountLabel = new javax.swing.JLabel();
         groupCountSlider = new javax.swing.JSlider();
@@ -94,11 +95,16 @@ public class MainJFrame extends javax.swing.JFrame {
         gpmSlider = new javax.swing.JSlider();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Morse Practice Pad");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
+        java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
+        layout.columnWidths = new int[] {0, 5, 0, 5, 0};
+        layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0};
+        getContentPane().setLayout(layout);
 
         playButton.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         playButton.setLabel("Play");
@@ -112,6 +118,34 @@ public class MainJFrame extends javax.swing.JFrame {
                 playButtonActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        getContentPane().add(playButton, gridBagConstraints);
+
+        codePanel.setPreferredSize(new java.awt.Dimension(200, 80));
+
+        canvas1.setBackground(new java.awt.Color(255, 255, 204));
+        canvas1.setPreferredSize(new java.awt.Dimension(200, 80));
+
+        javax.swing.GroupLayout codePanelLayout = new javax.swing.GroupLayout(codePanel);
+        codePanel.setLayout(codePanelLayout);
+        codePanelLayout.setHorizontalGroup(
+            codePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(canvas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        codePanelLayout.setVerticalGroup(
+            codePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(canvas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        getContentPane().add(codePanel, gridBagConstraints);
 
         currentLetterText.setColumns(1);
         currentLetterText.setFont(new java.awt.Font("Arial", 0, 160)); // NOI18N
@@ -119,30 +153,23 @@ public class MainJFrame extends javax.swing.JFrame {
         currentLetterText.setFocusable(false);
         jScrollPane2.setViewportView(currentLetterText);
 
-        canvas1.setBackground(new java.awt.Color(255, 255, 204));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 7;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(jScrollPane2, gridBagConstraints);
 
-        javax.swing.GroupLayout codePanelLayout = new javax.swing.GroupLayout(codePanel);
-        codePanel.setLayout(codePanelLayout);
-        codePanelLayout.setHorizontalGroup(
-            codePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 633, Short.MAX_VALUE)
-            .addGroup(codePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(codePanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(canvas1, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-        codePanelLayout.setVerticalGroup(
-            codePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 137, Short.MAX_VALUE)
-            .addGroup(codePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(codePanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(canvas1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
+        groupCountPanel.setMinimumSize(new java.awt.Dimension(352, 112));
+        groupCountPanel.setLayout(new java.awt.GridBagLayout());
 
         groupCountLabel.setText("10 Groups");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        groupCountPanel.add(groupCountLabel, gridBagConstraints);
 
         groupCountSlider.setMajorTickSpacing(5);
         groupCountSlider.setMaximum(20);
@@ -152,30 +179,27 @@ public class MainJFrame extends javax.swing.JFrame {
         groupCountSlider.setPaintTicks(true);
         groupCountSlider.setToolTipText("");
         groupCountSlider.setValue(10);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        groupCountPanel.add(groupCountSlider, gridBagConstraints);
 
         groupLabel.setText("Groups");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        groupCountPanel.add(groupLabel, gridBagConstraints);
 
-        javax.swing.GroupLayout groupCountPanelLayout = new javax.swing.GroupLayout(groupCountPanel);
-        groupCountPanel.setLayout(groupCountPanelLayout);
-        groupCountPanelLayout.setHorizontalGroup(
-            groupCountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(groupCountPanelLayout.createSequentialGroup()
-                .addComponent(groupLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(groupCountLabel)
-                .addContainerGap())
-            .addComponent(groupCountSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        groupCountPanelLayout.setVerticalGroup(
-            groupCountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(groupCountPanelLayout.createSequentialGroup()
-                .addGroup(groupCountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(groupCountLabel)
-                    .addComponent(groupLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(groupCountSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 10, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(15, 16, 0, 0);
+        getContentPane().add(groupCountPanel, gridBagConstraints);
 
         buttonGroup1.add(practiceRadioButton);
         practiceRadioButton.setSelected(true);
@@ -229,6 +253,13 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(11, 10, 0, 0);
+        getContentPane().add(modePanel, gridBagConstraints);
+
         textInputLabel.setText("Text Input");
         textInputLabel.setToolTipText("");
 
@@ -265,7 +296,7 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addGap(64, 64, 64)
                         .addComponent(immediatePlayCheckbox))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 17, Short.MAX_VALUE))
+                .addGap(0, 85, Short.MAX_VALUE))
         );
         textInputPanelLayout.setVerticalGroup(
             textInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,7 +310,23 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 5;
+        gridBagConstraints.ipadx = 17;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 10, 0, 0);
+        getContentPane().add(textInputPanel, gridBagConstraints);
+
+        toneFrequencyPanel.setLayout(new java.awt.GridBagLayout());
+
         toneFrequencyLabel.setText("Tone Frequency");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        toneFrequencyPanel.add(toneFrequencyLabel, gridBagConstraints);
 
         toneFrequencySlider.setMajorTickSpacing(100);
         toneFrequencySlider.setMaximum(1000);
@@ -294,37 +341,43 @@ public class MainJFrame extends javax.swing.JFrame {
                 toneFrequencySliderStateChanged(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        toneFrequencyPanel.add(toneFrequencySlider, gridBagConstraints);
 
         toneFrequencyNumberLabel.setText("700 Hz");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        toneFrequencyPanel.add(toneFrequencyNumberLabel, gridBagConstraints);
 
-        javax.swing.GroupLayout toneFrequencyPanelLayout = new javax.swing.GroupLayout(toneFrequencyPanel);
-        toneFrequencyPanel.setLayout(toneFrequencyPanelLayout);
-        toneFrequencyPanelLayout.setHorizontalGroup(
-            toneFrequencyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toneFrequencyPanelLayout.createSequentialGroup()
-                .addGroup(toneFrequencyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(toneFrequencyPanelLayout.createSequentialGroup()
-                        .addComponent(toneFrequencyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(toneFrequencyNumberLabel))
-                    .addComponent(toneFrequencySlider, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        toneFrequencyPanelLayout.setVerticalGroup(
-            toneFrequencyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, toneFrequencyPanelLayout.createSequentialGroup()
-                .addGroup(toneFrequencyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(toneFrequencyLabel)
-                    .addComponent(toneFrequencyNumberLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(toneFrequencySlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 16, 0, 0);
+        getContentPane().add(toneFrequencyPanel, gridBagConstraints);
+
+        codeSpeedPanel.setMinimumSize(new java.awt.Dimension(352, 112));
+        codeSpeedPanel.setLayout(new java.awt.GridBagLayout());
 
         codeSpeedLabel.setText("Code Speed");
+        codeSpeedLabel.setMinimumSize(new java.awt.Dimension(78, 14));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        codeSpeedPanel.add(codeSpeedLabel, gridBagConstraints);
 
         codeSpeedNumberLabel.setText("10 gpm");
         codeSpeedNumberLabel.setName("gpmText"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
+        codeSpeedPanel.add(codeSpeedNumberLabel, gridBagConstraints);
 
         gpmSlider.setMajorTickSpacing(3);
         gpmSlider.setMaximum(30);
@@ -341,82 +394,20 @@ public class MainJFrame extends javax.swing.JFrame {
                 gpmSliderStateChanged(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        codeSpeedPanel.add(gpmSlider, gridBagConstraints);
 
-        javax.swing.GroupLayout codeSpeedPanelLayout = new javax.swing.GroupLayout(codeSpeedPanel);
-        codeSpeedPanel.setLayout(codeSpeedPanelLayout);
-        codeSpeedPanelLayout.setHorizontalGroup(
-            codeSpeedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(codeSpeedPanelLayout.createSequentialGroup()
-                .addComponent(codeSpeedLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(codeSpeedNumberLabel)
-                .addContainerGap())
-            .addGroup(codeSpeedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(gpmSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
-        );
-        codeSpeedPanelLayout.setVerticalGroup(
-            codeSpeedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(codeSpeedPanelLayout.createSequentialGroup()
-                .addGroup(codeSpeedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(codeSpeedLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
-                    .addComponent(codeSpeedNumberLabel))
-                .addContainerGap(60, Short.MAX_VALUE))
-            .addGroup(codeSpeedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(codeSpeedPanelLayout.createSequentialGroup()
-                    .addGap(23, 23, 23)
-                    .addComponent(gpmSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textInputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(modePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(toneFrequencyPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(codeSpeedPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(groupCountPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(16, 16, 16)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(playButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
-                        .addComponent(codePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(modePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textInputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(groupCountPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(codeSpeedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(toneFrequencyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(playButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(codePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 16, 0, 0);
+        getContentPane().add(codeSpeedPanel, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -506,18 +497,6 @@ public class MainJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_gpmSliderStateChanged
 
-    private void toneFrequencySliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_toneFrequencySliderStateChanged
-        int toneHz = toneFrequencySlider.getValue();
-        hz = toneHz;
-        try {
-            morsePlayer = new MorsePlayer(frequency, hz, gpm);
-        } catch (IOException | LineUnavailableException ex) {
-            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        toneFrequencyNumberLabel.setText(hz + " Hz");
-        // TODO add your handling code here:
-    }//GEN-LAST:event_toneFrequencySliderStateChanged
-
     private void practiceRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_practiceRadioButtonActionPerformed
         setMode(evt);        // TODO add your handling code here:
     }//GEN-LAST:event_practiceRadioButtonActionPerformed
@@ -533,6 +512,18 @@ public class MainJFrame extends javax.swing.JFrame {
     private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_playButtonActionPerformed
+
+    private void toneFrequencySliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_toneFrequencySliderStateChanged
+        int toneHz = toneFrequencySlider.getValue();
+        hz = toneHz;
+        try {
+            morsePlayer = new MorsePlayer(frequency, hz, gpm);
+        } catch (IOException | LineUnavailableException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        toneFrequencyNumberLabel.setText(hz + " Hz");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_toneFrequencySliderStateChanged
 
     private void setMode(java.awt.event.ActionEvent evt) {
         if (practiceRadioButton.isSelected()) {
