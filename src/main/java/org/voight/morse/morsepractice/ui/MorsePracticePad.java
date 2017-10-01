@@ -5,19 +5,59 @@
  */
 package org.voight.morse.morsepractice.ui;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.LineUnavailableException;
+import org.voight.morse.morsepractice.MorsePlayer;
+
 /**
  *
  * @author Jeffrey Voight <jeff.voight@gmail.com>
  */
 public class MorsePracticePad extends javax.swing.JFrame {
+    private boolean immediatePlay = false;
+    private MorsePlayer morsePlayer;
+    private int frequency = 44100, hz = 700, gpm = 10;
+    //practice listen testing
+    private Mode mode = Mode.PRACTICE;
+    private boolean playing = false;
 
+    /**
+     *
+     */
+    public enum Mode {
+
+        /**
+         *
+         */
+        PRACTICE,
+        /**
+         *
+         */
+        LISTEN,
+        /**
+         *
+         */
+        TESTING;
+    }
+    
     /**
      * Creates new form MorsePracticePad
      */
-    public MorsePracticePad() {
+    public MorsePracticePad() throws IOException, LineUnavailableException {
         initComponents();
+        enablePracticeMode();
+        morsePlayer = new MorsePlayer(frequency, hz, gpm);
     }
 
+    public final void enablePracticeMode(){
+        mode=Mode.PRACTICE;
+        this.groupCountLabel.setVisible(false);
+        this.groupLabel.setVisible(false);
+        this.groupSlider.setVisible(false);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,16 +102,32 @@ public class MorsePracticePad extends javax.swing.JFrame {
         modePanel.setName("modesPanel"); // NOI18N
 
         modeButtonGroup.add(practiceRadioButton);
+        practiceRadioButton.setSelected(true);
         practiceRadioButton.setText("Practice Mode");
         practiceRadioButton.setToolTipText("Enter text and press play to hear.");
+        practiceRadioButton.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                practiceRadioButtonStateChanged(evt);
+            }
+        });
 
         modeButtonGroup.add(listenRadioButton);
         listenRadioButton.setText("Listen Mode");
         listenRadioButton.setToolTipText("Listen to random Morse Code.");
+        listenRadioButton.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                listenRadioButtonStateChanged(evt);
+            }
+        });
 
         modeButtonGroup.add(testingRadioButton);
         testingRadioButton.setText("Testing Mode");
         testingRadioButton.setToolTipText("Play code and see how well you copied.");
+        testingRadioButton.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                testingRadioButtonStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout modePanelLayout = new javax.swing.GroupLayout(modePanel);
         modePanel.setLayout(modePanelLayout);
@@ -104,14 +160,29 @@ public class MorsePracticePad extends javax.swing.JFrame {
         textInputPanel.setBackground(new java.awt.Color(204, 204, 204));
 
         inputTextField.setToolTipText("Enter text to be played as Morse Code");
+        inputTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                inputTextFieldKeyTyped(evt);
+            }
+        });
 
         textInputLabel.setText("Text Input");
 
         immediatePlayCheckBox.setText("Immediate Play");
         immediatePlayCheckBox.setToolTipText("Play Morse Code as symbols are entered.");
+        immediatePlayCheckBox.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                immediatePlayCheckBoxPropertyChange(evt);
+            }
+        });
 
         playButton.setText("Play");
         playButton.setToolTipText("Play the input text Morse Code");
+        playButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout textInputPanelLayout = new javax.swing.GroupLayout(textInputPanel);
         textInputPanel.setLayout(textInputPanelLayout);
@@ -163,6 +234,11 @@ public class MorsePracticePad extends javax.swing.JFrame {
         groupSlider.setSnapToTicks(true);
         groupSlider.setToolTipText("Adjusts the number of groups to test");
         groupSlider.setValue(5);
+        groupSlider.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                groupSliderPropertyChange(evt);
+            }
+        });
 
         javax.swing.GroupLayout groupsPanelLayout = new javax.swing.GroupLayout(groupsPanel);
         groupsPanel.setLayout(groupsPanelLayout);
@@ -205,6 +281,11 @@ public class MorsePracticePad extends javax.swing.JFrame {
         gpmSlider.setSnapToTicks(true);
         gpmSlider.setToolTipText("Adjusts the speed of the Morse Code");
         gpmSlider.setValue(10);
+        gpmSlider.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                gpmSliderPropertyChange(evt);
+            }
+        });
 
         javax.swing.GroupLayout gpmPanelLayout = new javax.swing.GroupLayout(gpmPanel);
         gpmPanel.setLayout(gpmPanelLayout);
@@ -247,6 +328,11 @@ public class MorsePracticePad extends javax.swing.JFrame {
         frequencySlider.setSnapToTicks(true);
         frequencySlider.setToolTipText("Adjusts the speed of the Morse Code");
         frequencySlider.setValue(700);
+        frequencySlider.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                frequencySliderPropertyChange(evt);
+            }
+        });
 
         javax.swing.GroupLayout frequencyPanelLayout = new javax.swing.GroupLayout(frequencyPanel);
         frequencyPanel.setLayout(frequencyPanelLayout);
@@ -352,6 +438,42 @@ public class MorsePracticePad extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void practiceRadioButtonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_practiceRadioButtonStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_practiceRadioButtonStateChanged
+
+    private void listenRadioButtonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_listenRadioButtonStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listenRadioButtonStateChanged
+
+    private void testingRadioButtonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_testingRadioButtonStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_testingRadioButtonStateChanged
+
+    private void groupSliderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_groupSliderPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_groupSliderPropertyChange
+
+    private void gpmSliderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_gpmSliderPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gpmSliderPropertyChange
+
+    private void frequencySliderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_frequencySliderPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_frequencySliderPropertyChange
+
+    private void immediatePlayCheckBoxPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_immediatePlayCheckBoxPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_immediatePlayCheckBoxPropertyChange
+
+    private void inputTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputTextFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputTextFieldKeyTyped
+
+    private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_playButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -382,7 +504,13 @@ public class MorsePracticePad extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MorsePracticePad().setVisible(true);
+                try {
+                    new MorsePracticePad().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (LineUnavailableException ex) {
+                    Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

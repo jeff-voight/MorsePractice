@@ -116,9 +116,13 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="modeButtonGroup"/>
             </Property>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Practice Mode"/>
             <Property name="toolTipText" type="java.lang.String" value="Enter text and press play to hear."/>
           </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="practiceRadioButtonStateChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="listenRadioButton">
           <Properties>
@@ -128,6 +132,9 @@
             <Property name="text" type="java.lang.String" value="Listen Mode"/>
             <Property name="toolTipText" type="java.lang.String" value="Listen to random Morse Code."/>
           </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="listenRadioButtonStateChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="testingRadioButton">
           <Properties>
@@ -137,6 +144,9 @@
             <Property name="text" type="java.lang.String" value="Testing Mode"/>
             <Property name="toolTipText" type="java.lang.String" value="Play code and see how well you copied."/>
           </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="testingRadioButtonStateChanged"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -190,6 +200,9 @@
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value="Enter text to be played as Morse Code"/>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="inputTextFieldKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="textInputLabel">
           <Properties>
@@ -201,12 +214,18 @@
             <Property name="text" type="java.lang.String" value="Immediate Play"/>
             <Property name="toolTipText" type="java.lang.String" value="Play Morse Code as symbols are entered."/>
           </Properties>
+          <Events>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="immediatePlayCheckBoxPropertyChange"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="playButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Play"/>
             <Property name="toolTipText" type="java.lang.String" value="Play the input text Morse Code"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="playButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -301,6 +320,9 @@
                 <Property name="toolTipText" type="java.lang.String" value="Adjusts the number of groups to test"/>
                 <Property name="value" type="int" value="5"/>
               </Properties>
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="groupSliderPropertyChange"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -366,6 +388,9 @@
                 <Property name="toolTipText" type="java.lang.String" value="Adjusts the speed of the Morse Code"/>
                 <Property name="value" type="int" value="10"/>
               </Properties>
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="gpmSliderPropertyChange"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -431,6 +456,9 @@
                 <Property name="toolTipText" type="java.lang.String" value="Adjusts the speed of the Morse Code"/>
                 <Property name="value" type="int" value="700"/>
               </Properties>
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="frequencySliderPropertyChange"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
