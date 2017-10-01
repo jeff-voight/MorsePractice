@@ -16,9 +16,10 @@ import org.voight.morse.morsepractice.MorsePlayer;
  * @author Jeffrey Voight <jeff.voight@gmail.com>
  */
 public class MorsePracticePad extends javax.swing.JFrame {
+
     private boolean immediatePlay = false;
     private MorsePlayer morsePlayer;
-    private int frequency = 44100, hz = 700, gpm = 10;
+    private int frequency = 44100, hz = 700, gpm = 10, groups = 5;
     //practice listen testing
     private Mode mode = Mode.PRACTICE;
     private boolean playing = false;
@@ -41,7 +42,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
          */
         TESTING;
     }
-    
+
     /**
      * Creates new form MorsePracticePad
      */
@@ -51,13 +52,83 @@ public class MorsePracticePad extends javax.swing.JFrame {
         morsePlayer = new MorsePlayer(frequency, hz, gpm);
     }
 
-    public final void enablePracticeMode(){
-        mode=Mode.PRACTICE;
+    private void enablePracticeMode() {
+        mode = Mode.PRACTICE;
         this.groupCountLabel.setVisible(false);
         this.groupLabel.setVisible(false);
         this.groupSlider.setVisible(false);
+        this.immediatePlayCheckBox.setEnabled(true);
+        this.letterCanvas.setVisible(true);
+
     }
-    
+
+    private void enableListenMode() {
+        mode = Mode.LISTEN;
+        this.groupCountLabel.setVisible(false);
+        this.groupLabel.setVisible(false);
+        this.groupSlider.setVisible(false);
+        this.immediatePlayCheckBox.setSelected(false);
+        this.immediatePlayCheckBox.setEnabled(false);
+        this.letterCanvas.setVisible(true);
+
+    }
+
+    private void enableTestingMode() {
+        mode = Mode.LISTEN;
+        this.groupCountLabel.setVisible(true);
+        this.groupLabel.setVisible(true);
+        this.groupSlider.setVisible(true);
+        this.immediatePlayCheckBox.setSelected(false);
+        this.immediatePlayCheckBox.setEnabled(false);
+        this.letterCanvas.setVisible(false);
+    }
+
+    private void changeMode() {
+        if (this.practiceRadioButton.isSelected()) {
+            enablePracticeMode();
+        } else if (this.listenRadioButton.isSelected()) {
+            enableListenMode();
+        } else if (this.testingRadioButton.isSelected()) {
+            enableTestingMode();
+        } else {
+            this.practiceRadioButton.setSelected(true);
+            enablePracticeMode();
+        }
+    }
+
+    private void changeGroupCount() {
+        groups = this.groupSlider.getValue();
+        this.groupCountLabel.setText(groups + " Groups");
+    }
+
+    private void changeGPMCount() {
+        gpm = this.gpmSlider.getValue();
+        this.gpmCountLabel.setText(gpm + " GPM");
+        restartMorsePlayer();
+    }
+
+    private void changeFrequency() {
+        hz = this.frequencySlider.getValue();
+        this.frequencyCountLabel.setText(hz + " Hz");
+        restartMorsePlayer();
+    }
+
+    private void changeImmediatePlay() {
+
+    }
+
+    private void playInputText() {
+        String text = this.inputTextField.getText();
+    }
+
+    private void restartMorsePlayer() {
+        try {
+            morsePlayer = new MorsePlayer(frequency, hz, gpm);
+        } catch (IOException | LineUnavailableException ex) {
+            Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -439,39 +510,39 @@ public class MorsePracticePad extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void practiceRadioButtonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_practiceRadioButtonStateChanged
-        // TODO add your handling code here:
+        changeMode();
     }//GEN-LAST:event_practiceRadioButtonStateChanged
 
     private void listenRadioButtonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_listenRadioButtonStateChanged
-        // TODO add your handling code here:
+        changeMode();
     }//GEN-LAST:event_listenRadioButtonStateChanged
 
     private void testingRadioButtonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_testingRadioButtonStateChanged
-        // TODO add your handling code here:
+        changeMode();
     }//GEN-LAST:event_testingRadioButtonStateChanged
 
     private void groupSliderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_groupSliderPropertyChange
-        // TODO add your handling code here:
+        changeGroupCount();
     }//GEN-LAST:event_groupSliderPropertyChange
 
     private void gpmSliderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_gpmSliderPropertyChange
-        // TODO add your handling code here:
+        changeGPMCount();
     }//GEN-LAST:event_gpmSliderPropertyChange
 
     private void frequencySliderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_frequencySliderPropertyChange
-        // TODO add your handling code here:
+        changeFrequency();
     }//GEN-LAST:event_frequencySliderPropertyChange
 
     private void immediatePlayCheckBoxPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_immediatePlayCheckBoxPropertyChange
-        // TODO add your handling code here:
+        changeImmediatePlay();
     }//GEN-LAST:event_immediatePlayCheckBoxPropertyChange
 
     private void inputTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputTextFieldKeyTyped
-        // TODO add your handling code here:
+        char keyPress = Character.toUpperCase(evt.getKeyChar());
     }//GEN-LAST:event_inputTextFieldKeyTyped
 
     private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
-        // TODO add your handling code here:
+        playInputText();
     }//GEN-LAST:event_playButtonActionPerformed
 
     /**
