@@ -36,7 +36,7 @@ public class MorsePlayer {
      *
      */
     protected int hz=700;
-    static final Logger log = Logger.getLogger(MorsePlayer.class.getName());
+    static final Logger LOG = Logger.getLogger(MorsePlayer.class.getName());
     HashMap<String, Symbol> symbols = new HashMap<>();
      AudioFormat af;
      SourceDataLine sdl;
@@ -80,7 +80,7 @@ public class MorsePlayer {
      */
     final public void setFrequency(int _frequency){
         if(_frequency>44100){
-            log.severe("44100 is about the limit, chum.");
+            LOG.severe("44100 is about the limit, chum.");
         }
         frequency=_frequency;
     }
@@ -91,7 +91,7 @@ public class MorsePlayer {
      */
     public final void setHz(int hz) {
         if (hz > 1000) {
-            log.severe("You have selected a frequency greater than 1000Hz. That's nuts.");
+            LOG.severe("You have selected a frequency greater than 1000Hz. That's nuts.");
         }
         this.hz = hz;
     }
@@ -108,7 +108,7 @@ public class MorsePlayer {
      */
     final public void setSpeed(int speed) {
         if (speed > 30) {
-            log.severe("You have selected a speed greater than 30 gpm. That's nuts.");
+            LOG.severe("You have selected a speed greater than 30 gpm. That's nuts.");
         }
         this.speed = speed;
     }

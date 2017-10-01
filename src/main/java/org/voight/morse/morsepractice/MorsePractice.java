@@ -5,13 +5,13 @@
  */
 package org.voight.morse.morsepractice;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.SwingUtilities;
 import org.voight.morse.morsepractice.ui.MainJFrame;
+import org.voight.morse.morsepractice.ui.MorsePracticePad;
 
 /**
  *
@@ -19,22 +19,12 @@ import org.voight.morse.morsepractice.ui.MainJFrame;
  */
 public class MorsePractice {
 
-    Logger log = Logger.getLogger(MorsePractice.class.getName());
-    //HashMap<String,Symbol> symbols  = new HashMap<> ();
-    int speed = 30; // 30 is the limit. Don't go over.
-    String inputText = "abCDEfghI";//ijklmnopqrstuvwxyz1234567890";
-    //MorsePlayer morsePlayer;
+    
 
     /**
      *
-     * @throws FileNotFoundException
-     * @throws IOException
-     * @throws LineUnavailableException
      */
-    public MorsePractice() throws FileNotFoundException, IOException, LineUnavailableException {
-        log.log(Level.INFO, "MorsePractice by Jeffrey Voight");
-        //morsePlayer=new MorsePlayer(44100, 700, 15);
-        //morsePlayer.setHz(700);
+    public MorsePractice() {
     }
 
     /**
@@ -53,9 +43,9 @@ public class MorsePractice {
 
     private void run() throws LineUnavailableException, IOException {
         SwingUtilities.invokeLater(() -> {
-            MainJFrame wnd = null;
+            MorsePracticePad wnd = null;
             try {
-                wnd = new MainJFrame();
+                wnd = new MorsePracticePad();
             } catch (IOException | LineUnavailableException ex) {
                 Logger.getLogger(MorsePractice.class.getName()).log(Level.SEVERE, null, ex);
             } finally {

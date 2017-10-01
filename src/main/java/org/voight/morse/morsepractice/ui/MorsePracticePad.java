@@ -90,10 +90,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
             enableListenMode();
         } else if (this.testingRadioButton.isSelected()) {
             enableTestingMode();
-        } else {
-            this.practiceRadioButton.setSelected(true);
-            enablePracticeMode();
-        }
+        } 
     }
 
     private void changeGroupCount() {
@@ -114,7 +111,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
     }
 
     private void changeImmediatePlay() {
-
+        immediatePlay=this.immediatePlayCheckBox.isSelected();
     }
 
     private void playInputText() {
@@ -305,9 +302,9 @@ public class MorsePracticePad extends javax.swing.JFrame {
         groupSlider.setSnapToTicks(true);
         groupSlider.setToolTipText("Adjusts the number of groups to test");
         groupSlider.setValue(5);
-        groupSlider.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                groupSliderPropertyChange(evt);
+        groupSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                groupSliderStateChanged(evt);
             }
         });
 
@@ -352,9 +349,9 @@ public class MorsePracticePad extends javax.swing.JFrame {
         gpmSlider.setSnapToTicks(true);
         gpmSlider.setToolTipText("Adjusts the speed of the Morse Code");
         gpmSlider.setValue(10);
-        gpmSlider.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                gpmSliderPropertyChange(evt);
+        gpmSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                gpmSliderStateChanged(evt);
             }
         });
 
@@ -399,6 +396,11 @@ public class MorsePracticePad extends javax.swing.JFrame {
         frequencySlider.setSnapToTicks(true);
         frequencySlider.setToolTipText("Adjusts the speed of the Morse Code");
         frequencySlider.setValue(700);
+        frequencySlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                frequencySliderStateChanged(evt);
+            }
+        });
         frequencySlider.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 frequencySliderPropertyChange(evt);
@@ -521,14 +523,6 @@ public class MorsePracticePad extends javax.swing.JFrame {
         changeMode();
     }//GEN-LAST:event_testingRadioButtonStateChanged
 
-    private void groupSliderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_groupSliderPropertyChange
-        changeGroupCount();
-    }//GEN-LAST:event_groupSliderPropertyChange
-
-    private void gpmSliderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_gpmSliderPropertyChange
-        changeGPMCount();
-    }//GEN-LAST:event_gpmSliderPropertyChange
-
     private void frequencySliderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_frequencySliderPropertyChange
         changeFrequency();
     }//GEN-LAST:event_frequencySliderPropertyChange
@@ -544,6 +538,18 @@ public class MorsePracticePad extends javax.swing.JFrame {
     private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
         playInputText();
     }//GEN-LAST:event_playButtonActionPerformed
+
+    private void groupSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_groupSliderStateChanged
+        changeGroupCount();
+    }//GEN-LAST:event_groupSliderStateChanged
+
+    private void gpmSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_gpmSliderStateChanged
+        changeGPMCount();
+    }//GEN-LAST:event_gpmSliderStateChanged
+
+    private void frequencySliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_frequencySliderStateChanged
+        changeFrequency();
+    }//GEN-LAST:event_frequencySliderStateChanged
 
     /**
      * @param args the command line arguments

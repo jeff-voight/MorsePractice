@@ -321,7 +321,7 @@
                 <Property name="value" type="int" value="5"/>
               </Properties>
               <Events>
-                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="groupSliderPropertyChange"/>
+                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="groupSliderStateChanged"/>
               </Events>
             </Component>
           </SubComponents>
@@ -389,7 +389,7 @@
                 <Property name="value" type="int" value="10"/>
               </Properties>
               <Events>
-                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="gpmSliderPropertyChange"/>
+                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="gpmSliderStateChanged"/>
               </Events>
             </Component>
           </SubComponents>
@@ -457,6 +457,7 @@
                 <Property name="value" type="int" value="700"/>
               </Properties>
               <Events>
+                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="frequencySliderStateChanged"/>
                 <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="frequencySliderPropertyChange"/>
               </Events>
             </Component>
