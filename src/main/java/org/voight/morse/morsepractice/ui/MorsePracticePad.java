@@ -52,13 +52,18 @@ public class MorsePracticePad extends javax.swing.JFrame {
         morsePlayer = new MorsePlayer(frequency, hz, gpm);
     }
 
+    private void drawLetter(){
+        if(mode!=Mode.TESTING){ // Don't display if testing mode
+            
+        }
+    }
     private void enablePracticeMode() {
         mode = Mode.PRACTICE;
         this.groupCountLabel.setVisible(false);
         this.groupLabel.setVisible(false);
         this.groupSlider.setVisible(false);
         this.immediatePlayCheckBox.setEnabled(true);
-        this.letterCanvas.setVisible(true);
+        this.letterPanel.setVisible(true);
 
     }
 
@@ -69,7 +74,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
         this.groupSlider.setVisible(false);
         this.immediatePlayCheckBox.setSelected(false);
         this.immediatePlayCheckBox.setEnabled(false);
-        this.letterCanvas.setVisible(true);
+        this.letterPanel.setVisible(true);
 
     }
 
@@ -80,7 +85,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
         this.groupSlider.setVisible(true);
         this.immediatePlayCheckBox.setSelected(false);
         this.immediatePlayCheckBox.setEnabled(false);
-        this.letterCanvas.setVisible(false);
+        this.letterPanel.setVisible(false);
     }
 
     private void changeMode() {
@@ -159,8 +164,8 @@ public class MorsePracticePad extends javax.swing.JFrame {
         frequencyCountLabel = new javax.swing.JLabel();
         frequencySlider = new javax.swing.JSlider();
         displayPanel = new javax.swing.JPanel();
-        codeCanvas = new java.awt.Canvas();
-        letterCanvas = new java.awt.Canvas();
+        letterPanel = new javax.swing.JPanel();
+        codePanel = new CodePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -452,9 +457,27 @@ public class MorsePracticePad extends javax.swing.JFrame {
 
         displayPanel.setBackground(new java.awt.Color(153, 153, 255));
 
-        codeCanvas.setBackground(new java.awt.Color(255, 255, 51));
+        javax.swing.GroupLayout letterPanelLayout = new javax.swing.GroupLayout(letterPanel);
+        letterPanel.setLayout(letterPanelLayout);
+        letterPanelLayout.setHorizontalGroup(
+            letterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 201, Short.MAX_VALUE)
+        );
+        letterPanelLayout.setVerticalGroup(
+            letterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
-        letterCanvas.setBackground(new java.awt.Color(255, 255, 0));
+        javax.swing.GroupLayout codePanelLayout = new javax.swing.GroupLayout(codePanel);
+        codePanel.setLayout(codePanelLayout);
+        codePanelLayout.setHorizontalGroup(
+            codePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 549, Short.MAX_VALUE)
+        );
+        codePanelLayout.setVerticalGroup(
+            codePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 159, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout displayPanelLayout = new javax.swing.GroupLayout(displayPanel);
         displayPanel.setLayout(displayPanelLayout);
@@ -462,9 +485,9 @@ public class MorsePracticePad extends javax.swing.JFrame {
             displayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(displayPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(codeCanvas, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(letterCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(codePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(letterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         displayPanelLayout.setVerticalGroup(
@@ -472,8 +495,8 @@ public class MorsePracticePad extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, displayPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(displayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(letterCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(codeCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(codePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(letterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -593,7 +616,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Canvas codeCanvas;
+    private javax.swing.JPanel codePanel;
     private javax.swing.JPanel controlsPanel;
     private javax.swing.JPanel displayPanel;
     private javax.swing.JLabel frequencyCountLabel;
@@ -610,7 +633,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
     private javax.swing.JPanel groupsPanel;
     private javax.swing.JCheckBox immediatePlayCheckBox;
     private javax.swing.JTextField inputTextField;
-    private java.awt.Canvas letterCanvas;
+    private javax.swing.JPanel letterPanel;
     private javax.swing.JRadioButton listenRadioButton;
     private javax.swing.ButtonGroup modeButtonGroup;
     private javax.swing.JPanel modePanel;
