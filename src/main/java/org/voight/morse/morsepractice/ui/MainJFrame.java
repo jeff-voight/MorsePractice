@@ -52,6 +52,7 @@ public class MainJFrame extends javax.swing.JFrame {
      */
     public MainJFrame() throws IOException, LineUnavailableException {
         initComponents();
+        enablePracticeMode();
         morsePlayer = new MorsePlayer(frequency, hz, gpm);
     }
 
@@ -552,6 +553,7 @@ public class MainJFrame extends javax.swing.JFrame {
         this.immediatePlayCheckbox.setSelected(false);
         this.currentLetterText.setVisible(true);
         this.inputTextArea.requestFocus();
+        this.groupCountPanel.setVisible(false);
 
     }
 
@@ -560,6 +562,7 @@ public class MainJFrame extends javax.swing.JFrame {
         this.immediatePlayCheckbox.setEnabled(false);
         this.immediatePlayCheckbox.setSelected(false);
         this.currentLetterText.setVisible(true);
+        this.groupCountPanel.setVisible(true);
 
     }
 
@@ -568,6 +571,9 @@ public class MainJFrame extends javax.swing.JFrame {
         this.immediatePlayCheckbox.setEnabled(false);
         this.immediatePlayCheckbox.setSelected(false);
         this.currentLetterText.setVisible(false);
+        this.groupCountPanel.setVisible(true);
+        this.inputTextArea.requestFocus();
+
     }
 
     /**
