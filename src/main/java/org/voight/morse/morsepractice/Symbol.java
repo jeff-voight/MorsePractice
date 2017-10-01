@@ -68,7 +68,8 @@ public class Symbol {
      *
      */
     protected byte[] tone = new byte[0];
-
+    private String code="";
+    
     /**
      *
      * @param _code
@@ -77,6 +78,7 @@ public class Symbol {
      * @throws LineUnavailableException
      */
     public Symbol(String _code, int _hz, int _speed) throws LineUnavailableException {
+        code=_code;
         setDurations(_speed);
         setHz(_hz);
         t = new Tone();
@@ -103,6 +105,10 @@ public class Symbol {
         // log.info(display);
     }
 
+    public String getCode(){
+        return code;
+    }
+    
     /**
      *
      * @param _hz
