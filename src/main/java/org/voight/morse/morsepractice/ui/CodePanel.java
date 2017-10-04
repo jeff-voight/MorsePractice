@@ -19,11 +19,12 @@ import org.voight.morse.morsepractice.Symbol;
 public class CodePanel extends JPanel {
 
     Symbol symbol;
+    boolean clear = false;
 
     public CodePanel() {
         super();
         try {
-            symbol = new Symbol("10111", 700, 10);
+            symbol = new Symbol("100", 700, 10); // This is a dummy symbol. Probably never get seen
         } catch (LineUnavailableException ex) {
             Logger.getLogger(CodePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -33,22 +34,33 @@ public class CodePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.clearRect(0, 0, getWidth(), getHeight());
-        int charWidth = getWidth() / 5;
-        int charHeight = getHeight();
-        String symbolString = symbol.getCode();
-        int symbolLength = symbolString.length();
-        for (int i = 0; i < symbolLength; i++) {
-            char theChar = symbolString.charAt(i);
-            if ('1' == theChar) {
-                drawDash(g, i * charWidth, charWidth, charHeight);
-            } else {
-                drawDot(g, i * charWidth, charWidth, charHeight);
+        if (!clear&&symbol!=null) {
+            int charWidth = getWidth() / 5;
+            int charHeight = getHeight();
+            String symbolString = symbol.getCode();
+            int symbolLength = symbolString.length();
+            for (int i = 0; i < symbolLength; i++) {
+                char theChar = symbolString.charAt(i);
+                if ('1' == theChar) {
+                    drawDash(g, i * charWidth, charWidth, charHeight);
+                } else {
+                    drawDot(g, i * charWidth, charWidth, charHeight);
+                }
             }
         }
     }
 
+    public void clearSymbol(){
+        clear=true;
+        this.repaint(10);
+        this.paintImmediately(0, 0, getWidth(), getHeight()); // These two lines are buggy
+
+    }
+    
     public void setSymbol(Symbol s) {
+        clear=false;
         symbol = s;
+        this.repaint(10);
     }
 
     private void drawDash(Graphics g, int start, int charWidth, int charHeight) {
