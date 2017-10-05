@@ -24,7 +24,7 @@ public class CodePanel extends JPanel {
     public CodePanel() {
         super();
         try {
-            symbol = new Symbol("100", 700, 10); // This is a dummy symbol. Probably never get seen
+            symbol = new Symbol("", 700, 10); // This is a dummy symbol. Probably never get seen
         } catch (LineUnavailableException ex) {
             Logger.getLogger(CodePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -60,7 +60,7 @@ public class CodePanel extends JPanel {
     public void setSymbol(Symbol s) {
         clear=false;
         symbol = s;
-        this.repaint(10);
+        this.repaint(20);
     }
 
     private void drawDash(Graphics g, int start, int charWidth, int charHeight) {
