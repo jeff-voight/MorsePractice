@@ -6,6 +6,7 @@
 package org.voight.morse.morsepractice.ui;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.LineUnavailableException;
@@ -23,7 +24,8 @@ public class MorsePracticePad extends javax.swing.JFrame {
     //practice listen testing
     private Mode mode = Mode.PRACTICE;
     private boolean playing = false;
-
+    private Random r=new Random();
+    String alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     /**
      *
      */
@@ -45,6 +47,8 @@ public class MorsePracticePad extends javax.swing.JFrame {
 
     /**
      * Creates new form MorsePracticePad
+     * @throws java.io.IOException
+     * @throws javax.sound.sampled.LineUnavailableException
      */
     public MorsePracticePad() throws IOException, LineUnavailableException {
         initComponents();
@@ -69,9 +73,9 @@ public class MorsePracticePad extends javax.swing.JFrame {
 
     private void enableListenMode() {
         mode = Mode.LISTEN;
-        this.groupCountLabel.setVisible(false);
-        this.groupLabel.setVisible(false);
-        this.groupSlider.setVisible(false);
+        this.groupCountLabel.setVisible(true);
+        this.groupLabel.setVisible(true);
+        this.groupSlider.setVisible(true);
         this.immediatePlayCheckBox.setSelected(false);
         this.immediatePlayCheckBox.setEnabled(false);
         this.letterPanel.setVisible(true);
@@ -101,8 +105,21 @@ public class MorsePracticePad extends javax.swing.JFrame {
     private void changeGroupCount() {
         groups = this.groupSlider.getValue();
         this.groupCountLabel.setText(groups + " Groups");
+        inputTextArea.setText(getRandomText(groups));
     }
 
+    private String getRandomText(int numGroups){
+        StringBuilder returnString=new StringBuilder();
+        for(int i=0;i<numGroups;i++){
+            for(int j=0;j<5;j++){ // groups are 5 symbols
+                char b=alphabet.charAt(r.nextInt(alphabet.length()));
+                returnString.append(b);                            
+            }
+            returnString.append(' ');
+        }
+        return returnString.toString();
+    }
+    
     private void changeGPMCount() {
         gpm = this.gpmSlider.getValue();
         this.gpmCountLabel.setText(gpm + " GPM");
@@ -120,7 +137,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
     }
 
     private void playInputText() {
-        String text = this.inputTextField.getText();
+        String text = this.inputTextArea.getText();
     }
 
     private void restartMorsePlayer() {
@@ -146,10 +163,11 @@ public class MorsePracticePad extends javax.swing.JFrame {
         listenRadioButton = new javax.swing.JRadioButton();
         testingRadioButton = new javax.swing.JRadioButton();
         textInputPanel = new javax.swing.JPanel();
-        inputTextField = new javax.swing.JTextField();
         textInputLabel = new javax.swing.JLabel();
         immediatePlayCheckBox = new javax.swing.JCheckBox();
         playButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        inputTextArea = new javax.swing.JTextArea();
         controlsPanel = new javax.swing.JPanel();
         groupsPanel = new javax.swing.JPanel();
         groupLabel = new javax.swing.JLabel();
@@ -232,13 +250,6 @@ public class MorsePracticePad extends javax.swing.JFrame {
 
         textInputPanel.setBackground(new java.awt.Color(204, 204, 204));
 
-        inputTextField.setToolTipText("Enter text to be played as Morse Code");
-        inputTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                inputTextFieldKeyTyped(evt);
-            }
-        });
-
         textInputLabel.setText("Text Input");
 
         immediatePlayCheckBox.setText("Immediate Play");
@@ -257,19 +268,24 @@ public class MorsePracticePad extends javax.swing.JFrame {
             }
         });
 
+        inputTextArea.setColumns(20);
+        inputTextArea.setRows(5);
+        inputTextArea.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(inputTextArea);
+
         javax.swing.GroupLayout textInputPanelLayout = new javax.swing.GroupLayout(textInputPanel);
         textInputPanel.setLayout(textInputPanelLayout);
         textInputPanelLayout.setHorizontalGroup(
             textInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(textInputPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, textInputPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(textInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(inputTextField)
-                    .addGroup(textInputPanelLayout.createSequentialGroup()
+                .addGroup(textInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, textInputPanelLayout.createSequentialGroup()
                         .addComponent(textInputLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                         .addComponent(immediatePlayCheckBox))
-                    .addGroup(textInputPanelLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, textInputPanelLayout.createSequentialGroup()
                         .addComponent(playButton)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -282,10 +298,10 @@ public class MorsePracticePad extends javax.swing.JFrame {
                     .addComponent(textInputLabel)
                     .addComponent(immediatePlayCheckBox))
                 .addGap(12, 12, 12)
-                .addComponent(inputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(playButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         controlsPanel.setBackground(new java.awt.Color(153, 255, 255));
@@ -476,7 +492,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
         );
         codePanelLayout.setVerticalGroup(
             codePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 159, Short.MAX_VALUE)
+            .addGap(0, 157, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout displayPanelLayout = new javax.swing.GroupLayout(displayPanel);
@@ -554,10 +570,6 @@ public class MorsePracticePad extends javax.swing.JFrame {
         changeImmediatePlay();
     }//GEN-LAST:event_immediatePlayCheckBoxPropertyChange
 
-    private void inputTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputTextFieldKeyTyped
-        char keyPress = Character.toUpperCase(evt.getKeyChar());
-    }//GEN-LAST:event_inputTextFieldKeyTyped
-
     private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
         playInputText();
     }//GEN-LAST:event_playButtonActionPerformed
@@ -602,15 +614,13 @@ public class MorsePracticePad extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new MorsePracticePad().setVisible(true);
-                } catch (IOException ex) {
-                    Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (LineUnavailableException ex) {
-                    Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new MorsePracticePad().setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
@@ -632,7 +642,8 @@ public class MorsePracticePad extends javax.swing.JFrame {
     private javax.swing.JSlider groupSlider;
     private javax.swing.JPanel groupsPanel;
     private javax.swing.JCheckBox immediatePlayCheckBox;
-    private javax.swing.JTextField inputTextField;
+    private javax.swing.JTextArea inputTextArea;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel letterPanel;
     private javax.swing.JRadioButton listenRadioButton;
     private javax.swing.ButtonGroup modeButtonGroup;
