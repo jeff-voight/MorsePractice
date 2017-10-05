@@ -145,18 +145,29 @@ public class MorsePracticePad extends javax.swing.JFrame {
         int strlen = text.length();
         for (int i = 0; i < strlen; i++) {
             //letterPanel.setCharacter(text.charAt(i));
+            do{
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } while (playing);
             play(text.charAt(i));
         }
     }
 
     private void play(char c) {
         playing = true;
-        class Player extends SwingWorker<String, String> {
-
+        playButton.setText("Stop");
+        //letterPanel.setCharacter(c);
+        ((CodePanel)codePanel).setSymbol(morsePlayer.getSymbol(c));
+        codePanel.repaint();
+        class Player extends SwingWorker<String, Void> {
             @Override
             public String doInBackground() {
                 try {
                     morsePlayer.play(c);
+                    playing=false;
                 } catch (LineUnavailableException ex) {
                     Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
                 }
