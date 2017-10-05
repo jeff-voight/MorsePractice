@@ -10,6 +10,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.LineUnavailableException;
+import javax.swing.SwingWorker;
 import org.voight.morse.morsepractice.MorsePlayer;
 
 /**
@@ -24,8 +25,9 @@ public class MorsePracticePad extends javax.swing.JFrame {
     //practice listen testing
     private Mode mode = Mode.PRACTICE;
     private boolean playing = false;
-    private Random r=new Random();
-    String alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    private Random r = new Random();
+    String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+
     /**
      *
      */
@@ -47,6 +49,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
 
     /**
      * Creates new form MorsePracticePad
+     *
      * @throws java.io.IOException
      * @throws javax.sound.sampled.LineUnavailableException
      */
@@ -56,11 +59,12 @@ public class MorsePracticePad extends javax.swing.JFrame {
         morsePlayer = new MorsePlayer(frequency, hz, gpm);
     }
 
-    private void drawLetter(){
-        if(mode!=Mode.TESTING){ // Don't display if testing mode
-            
+    private void drawLetter() {
+        if (mode != Mode.TESTING) { // Don't display if testing mode
+
         }
     }
+
     private void enablePracticeMode() {
         mode = Mode.PRACTICE;
         this.groupCountLabel.setVisible(false);
@@ -99,27 +103,27 @@ public class MorsePracticePad extends javax.swing.JFrame {
             enableListenMode();
         } else if (this.testingRadioButton.isSelected()) {
             enableTestingMode();
-        } 
+        }
     }
 
     private void changeGroupCount() {
         groups = this.groupSlider.getValue();
         this.groupCountLabel.setText(groups + " Groups");
-        inputTextArea.setText(getRandomText(groups));
+        jTextArea1.setText(getRandomText(groups));
     }
 
-    private String getRandomText(int numGroups){
-        StringBuilder returnString=new StringBuilder();
-        for(int i=0;i<numGroups;i++){
-            for(int j=0;j<5;j++){ // groups are 5 symbols
-                char b=alphabet.charAt(r.nextInt(alphabet.length()));
-                returnString.append(b);                            
+    private String getRandomText(int numGroups) {
+        StringBuilder returnString = new StringBuilder();
+        for (int i = 0; i < numGroups; i++) {
+            for (int j = 0; j < 5; j++) { // groups are 5 symbols
+                char b = alphabet.charAt(r.nextInt(alphabet.length()));
+                returnString.append(b);
             }
             returnString.append(' ');
         }
         return returnString.toString();
     }
-    
+
     private void changeGPMCount() {
         gpm = this.gpmSlider.getValue();
         this.gpmCountLabel.setText(gpm + " GPM");
@@ -133,18 +137,53 @@ public class MorsePracticePad extends javax.swing.JFrame {
     }
 
     private void changeImmediatePlay() {
-        immediatePlay=this.immediatePlayCheckBox.isSelected();
+        immediatePlay = this.immediatePlayCheckBox.isSelected();
     }
 
     private void playInputText() {
-        String text = this.inputTextArea.getText();
+        String text = this.jTextArea1.getText();
+        int strlen = text.length();
+        for (int i = 0; i < strlen; i++) {
+            //letterPanel.setCharacter(text.charAt(i));
+            play(text.charAt(i));
+        }
+    }
+
+    private void play(char c) {
+        playing = true;
+        class Player extends SwingWorker<String, String> {
+
+            @Override
+            public String doInBackground() {
+                try {
+                    morsePlayer.play(c);
+                } catch (LineUnavailableException ex) {
+                    Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                return "";
+            }
+
+            @Override
+            protected void done() {
+                playing = false;
+                playButton.setText("Play");
+            }
+        }
+        new Player().execute();
+//            int strLen = theText.length();
+//            for (int i = 0; i < strLen; i++) {
+//                play(theText.charAt(i));
+//            }
+
     }
 
     private void restartMorsePlayer() {
         try {
             morsePlayer = new MorsePlayer(frequency, hz, gpm);
+
         } catch (IOException | LineUnavailableException ex) {
-            Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MorsePracticePad.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -167,7 +206,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
         immediatePlayCheckBox = new javax.swing.JCheckBox();
         playButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        inputTextArea = new javax.swing.JTextArea();
+        jTextArea1 = new javax.swing.JTextArea();
         controlsPanel = new javax.swing.JPanel();
         groupsPanel = new javax.swing.JPanel();
         groupLabel = new javax.swing.JLabel();
@@ -268,10 +307,9 @@ public class MorsePracticePad extends javax.swing.JFrame {
             }
         });
 
-        inputTextArea.setColumns(20);
-        inputTextArea.setRows(5);
-        inputTextArea.setWrapStyleWord(true);
-        jScrollPane1.setViewportView(inputTextArea);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout textInputPanelLayout = new javax.swing.GroupLayout(textInputPanel);
         textInputPanel.setLayout(textInputPanelLayout);
@@ -600,16 +638,24 @@ public class MorsePracticePad extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MorsePracticePad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MorsePracticePad.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MorsePracticePad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MorsePracticePad.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MorsePracticePad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MorsePracticePad.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MorsePracticePad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MorsePracticePad.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -617,10 +663,14 @@ public class MorsePracticePad extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             try {
                 new MorsePracticePad().setVisible(true);
+
             } catch (IOException ex) {
-                Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MorsePracticePad.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
             } catch (LineUnavailableException ex) {
-                Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MorsePracticePad.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
@@ -642,8 +692,8 @@ public class MorsePracticePad extends javax.swing.JFrame {
     private javax.swing.JSlider groupSlider;
     private javax.swing.JPanel groupsPanel;
     private javax.swing.JCheckBox immediatePlayCheckBox;
-    private javax.swing.JTextArea inputTextArea;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel letterPanel;
     private javax.swing.JRadioButton listenRadioButton;
     private javax.swing.ButtonGroup modeButtonGroup;
