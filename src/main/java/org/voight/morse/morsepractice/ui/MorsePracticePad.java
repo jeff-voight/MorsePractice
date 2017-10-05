@@ -24,7 +24,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
     private int frequency = 44100, hz = 700, gpm = 10, groups = 5;
     //practice listen testing
     private Mode mode = Mode.PRACTICE;
-    private boolean playing = false;
+    private boolean currentlyOutputtingAudio = false, playing = false;
     private Random r = new Random();
     String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
@@ -80,6 +80,9 @@ public class MorsePracticePad extends javax.swing.JFrame {
         this.groupCountLabel.setVisible(true);
         this.groupLabel.setVisible(true);
         this.groupSlider.setVisible(true);
+        if (jTextArea1.getText().equals("")) {
+            jTextArea1.setText(getRandomText(groupSlider.getValue()));
+        }
         this.immediatePlayCheckBox.setSelected(false);
         this.immediatePlayCheckBox.setEnabled(false);
         this.letterPanel.setVisible(true);
@@ -141,50 +144,67 @@ public class MorsePracticePad extends javax.swing.JFrame {
     }
 
     private void playInputText() {
-        String text = this.jTextArea1.getText();
-        int strlen = text.length();
-        for (int i = 0; i < strlen; i++) {
-            //letterPanel.setCharacter(text.charAt(i));
-            do{
-                try {
-                    Thread.sleep(200);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
+        if (!playing) {
+            playButton.setText("STOP");
+            playButton.repaint();
+            playing = true;
+
+            String text = this.jTextArea1.getText();
+            int strlen = text.length();
+            for (int i = 0; i < strlen; i++) {
+                //letterPanel.setCharacter(text.charAt(i));
+                while (currentlyOutputtingAudio&&playing) {
+                    try {
+                        Thread.sleep(20);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            } while (playing);
-            play(text.charAt(i));
+                play(text.charAt(i));
+            }
+        } else {
+            playing = false;
+            playButton.setText("Play");
         }
+        playing = false;
+        playButton.setText("Play");
     }
 
     private void play(char c) {
-        playing = true;
-        playButton.setText("Stop");
-        //letterPanel.setCharacter(c);
-        ((CodePanel)codePanel).setSymbol(morsePlayer.getSymbol(c));
-        codePanel.repaint();
-        class Player extends SwingWorker<String, Void> {
-            @Override
-            public String doInBackground() {
-                try {
-                    morsePlayer.play(c);
-                    playing=false;
-                } catch (LineUnavailableException ex) {
-                    Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
+        if (!currentlyOutputtingAudio) {
+            currentlyOutputtingAudio=true;
+            //letterPanel.setCharacter(c);
+            ((CodePanel) codePanel).setSymbol(morsePlayer.getSymbol(c));
+            codePanel.repaint();
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            class Player extends SwingWorker<String, Void> {
+                @Override
+                public String doInBackground() {
+                    try {
+                        currentlyOutputtingAudio=true;
+                        morsePlayer.play(c);
+                        currentlyOutputtingAudio=false;
+                    } catch (LineUnavailableException ex) {
+                        Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    return "";
                 }
-                return "";
-            }
 
-            @Override
-            protected void done() {
-                playing = false;
-                playButton.setText("Play");
+                @Override
+                protected void done() {
+                    currentlyOutputtingAudio = false;
+                }
             }
-        }
-        new Player().execute();
+            new Player().execute();
 //            int strLen = theText.length();
 //            for (int i = 0; i < strLen; i++) {
 //                play(theText.charAt(i));
 //            }
+        }
 
     }
 
@@ -236,7 +256,6 @@ public class MorsePracticePad extends javax.swing.JFrame {
         codePanel = new CodePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
         modePanel.setBackground(new java.awt.Color(204, 204, 204));
