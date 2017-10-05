@@ -67,6 +67,10 @@ public class MorsePlayer {
         symbols.put(" ", new Symbol(" ", hz, speed));
     }
 
+    public Symbol getSymbol(String l){
+        return symbols.get(l);
+    }
+    
     /**
      * @return the frequency
      */
@@ -130,6 +134,10 @@ public class MorsePlayer {
     public void play(char _c) throws LineUnavailableException {
         _c=Character.toLowerCase(_c);
         play(symbols.get(""+_c));
+    }
+    
+    public Symbol getSymbol(char _c){
+        return symbols.get(""+_c);
     }
 
     /**
