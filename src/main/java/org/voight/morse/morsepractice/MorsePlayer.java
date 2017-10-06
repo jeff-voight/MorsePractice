@@ -62,7 +62,7 @@ public class MorsePlayer {
             String key = (String) e.nextElement();
             String value = (String) p.getProperty(key);
             //log.info("Key: '"+key+"' Value: '"+value+"'");
-            symbols.put(key, new Symbol(value, hz, speed));
+            symbols.put(key.toUpperCase(), new Symbol(value, hz, speed));
         }
         symbols.put(" ", new Symbol(" ", hz, speed));
     }
@@ -131,13 +131,12 @@ public class MorsePlayer {
      * @param _c
      * @throws LineUnavailableException
      */
-    public void play(char _c) throws LineUnavailableException {
-        _c=Character.toLowerCase(_c);
-        play(symbols.get(""+_c));
+    public void play(char _c) throws LineUnavailableException {        
+        play(symbols.get(""+Character.toUpperCase(_c)));
     }
     
     public Symbol getSymbol(char _c){
-        return symbols.get(""+_c);
+        return symbols.get(""+Character.toUpperCase(_c));
     }
 
     /**
