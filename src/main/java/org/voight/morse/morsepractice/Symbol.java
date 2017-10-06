@@ -69,15 +69,18 @@ public class Symbol {
      */
     protected byte[] tone = new byte[0];
     private String code="";
+    private char c;
     
     /**
      *
+     * @param c
      * @param _code
      * @param _hz
      * @param _speed
      * @throws LineUnavailableException
      */
-    public Symbol(String _code, int _hz, int _speed) throws LineUnavailableException {
+    public Symbol(char c, String _code, int _hz, int _speed) throws LineUnavailableException {
+        this.c=Character.toUpperCase(c);
         code=_code;
         setDurations(_speed);
         setHz(_hz);
@@ -105,6 +108,10 @@ public class Symbol {
         // log.info(display);
     }
 
+    public String getText(){
+        return ""+c;
+    }
+    
     public String getCode(){
         return code;
     }
@@ -146,16 +153,19 @@ public class Symbol {
      * @param _gpm
      * @return
      */
-    private int getDit(int _gpm) {
-        double longest = 60.0 / (_gpm * 5); // The longest duration a symbol can be at this rate in seconds
+    public static int getDit(int _gpm) {
+        double symbolPerMinute=_gpm*5;
+        double symbolDuration = 60/symbolPerMinute;
+        // The longest duration a symbol can be at this rate in seconds
         // The longest symbol possible is 5 DAHs in a row plus a DAH pause at the end.
         // Including the DIT pauses between DITs and DAHs, that makes
         // 6*DAH + 4*DIT. Each DAH is 3*DIT. This means that the longest symbol is 
         // 3 * 6 * DAH + 4 * DIT = (18 + 4) * DIT or 22*DIT.
         // Therefore, a DIT is longest/22.
-        int dit = (int) (longest * 1000 / 22); // Convert to milliseconds while we're here
-        log.info("At " + _gpm + "GPM, DIT is " + dit + " milliseconds.");
-        return dit;
+        double ditDuration = symbolDuration/22; 
+        int ditDurationMilliseconds=(int)(ditDuration*1000);
+        log.info("At " + _gpm + "GPM, DIT is " + ditDurationMilliseconds + " milliseconds.");
+        return ditDurationMilliseconds;
     }
 
     private void setDurations(int _speed) {
