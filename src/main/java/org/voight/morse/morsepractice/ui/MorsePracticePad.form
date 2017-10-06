@@ -507,6 +507,9 @@
       </Layout>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="letterPanel">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LetterPanel()"/>
+          </AuxValues>
 
           <Layout>
             <DimensionLayout dim="0">

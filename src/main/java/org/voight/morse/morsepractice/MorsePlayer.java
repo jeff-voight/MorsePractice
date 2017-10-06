@@ -59,12 +59,12 @@ public class MorsePlayer {
         p.load(new FileReader("src/main/resources/ITUsymbols.properties"));
         Enumeration e = p.propertyNames();
         while (e.hasMoreElements()) {
-            String key = (String) e.nextElement();
+            String key = ((String)e.nextElement());
             String value = (String) p.getProperty(key);
             //log.info("Key: '"+key+"' Value: '"+value+"'");
-            symbols.put(key.toUpperCase(), new Symbol(value, hz, speed));
+            symbols.put(key.toUpperCase(), new Symbol(key.charAt(0), value, hz, speed));
         }
-        symbols.put(" ", new Symbol(" ", hz, speed));
+        symbols.put(" ", new Symbol(' ', "", hz, speed));
     }
 
     public Symbol getSymbol(String l){

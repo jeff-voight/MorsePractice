@@ -18,7 +18,7 @@ import org.voight.morse.morsepractice.Symbol;
  *
  * @author Jeffrey Voight <jeff.voight@gmail.com>
  */
-public class CodePanel extends JPanel {
+public class LetterPanel extends JPanel {
 
     Symbol symbol;
     boolean clear = false;
@@ -26,21 +26,22 @@ public class CodePanel extends JPanel {
             centerHeight, dashHeight, dashWidth, dotHeight, dotWidth, symbolLength;
     String symbolString;
 
-    public CodePanel() {
+    public LetterPanel() {
         super();
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                charWidth = getWidth() / 5;
-                charHeight = getHeight();
-                centerWidth = charWidth / 2;
-                centerHeight = charHeight / 2;
-                dashHeight = (int) (charHeight * .2); // 20%
-                dashWidth = (int) (charWidth * .8); // 80%
-                dotHeight = (int) (charHeight * .2); // 20%
-                dotWidth = (int) (charWidth * .2); // 80%
-            }
-        });
+        this.setFont(this.getFont().deriveFont(20f));
+//        addComponentListener(new ComponentAdapter() {
+//            @Override
+//            public void componentResized(ComponentEvent e) {
+//                charWidth = getWidth() ;
+//                charHeight = getHeight();
+//                centerWidth = charWidth / 2;
+//                centerHeight = charHeight / 2;
+//                dashHeight = (int) (charHeight * .2); // 20%
+//                dashWidth = (int) (charWidth * .8); // 80%
+//                dotHeight = (int) (charHeight * .2); // 20%
+//                dotWidth = (int) (charWidth * .2); // 80%
+//            }
+//        });
 
         try {
             symbol = new Symbol(' ', "", 700, 10); // This is a dummy symbol. Probably never get seen
@@ -53,15 +54,9 @@ public class CodePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.clearRect(0, 0, width, height);
-        if (!clear && symbol != null) {            
-            for (int i = 0; i < symbolLength; i++) {
-                char theChar = symbolString.charAt(i);
-                if ('1' == theChar) {
-                    drawDash(g, i * charWidth);
-                } else {
-                    drawDot(g, i * charWidth);
-                }
-            }
+        if (!clear && symbol != null) {
+            g.drawString(symbol.getText(), 0, 0);
+
         }
     }
 
@@ -85,7 +80,7 @@ public class CodePanel extends JPanel {
         g.fillRoundRect(x, y, dashWidth, dashHeight, 9, 9);
     }
 
-    private void drawDot(Graphics g, int start) {        
+    private void drawDot(Graphics g, int start) {
         int x = start + centerWidth - dotWidth / 2;
         int y = centerHeight - dotHeight / 2;
         g.fillOval(x, y, dotWidth, dotHeight);
