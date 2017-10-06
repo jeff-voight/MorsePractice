@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.SwingWorker;
 import org.voight.morse.morsepractice.MorsePlayer;
+import org.voight.morse.morsepractice.Symbol;
 
 /**
  *
@@ -146,21 +147,23 @@ public class MorsePracticePad extends javax.swing.JFrame {
     private void playInputText() {
         if (!playing) {
             playButton.setText("STOP");
-        playButton.paintImmediately(0,0, playButton.getWidth(), playButton.getHeight());
+            playButton.paintImmediately(0, 0, playButton.getWidth(), playButton.getHeight());
             playing = true;
 
             String text = this.inputTextArea.getText();
             int strlen = text.length();
             for (int i = 0; i < strlen; i++) {
-                //letterPanel.setCharacter(text.charAt(i));
-                while (currentlyOutputtingAudio && playing) {
-                    try {
-                        Thread.sleep(20);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                try {
+                    char c = text.charAt(i);
+                    //letterPanel.setCharacter(text.charAt(i));
+                    ((CodePanel) codePanel).setSymbol(morsePlayer.getSymbol(c));
+                    codePanel.paintImmediately(0, 0, codePanel.getWidth(), codePanel.getHeight());
+                    Thread.sleep(Symbol.getDit(gpm) * 3);
+
+                    play(c);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                play(text.charAt(i));
             }
         } else {
             playing = false;
@@ -168,63 +171,53 @@ public class MorsePracticePad extends javax.swing.JFrame {
         }
         playing = false;
         playButton.setText("Play");
-        playButton.paintImmediately(0,0, playButton.getWidth(), playButton.getHeight());
+        playButton.paintImmediately(0, 0, playButton.getWidth(), playButton.getHeight());
+        ((CodePanel) codePanel).clearSymbol();
     }
 
     private void play(char c) {
-        if (!currentlyOutputtingAudio) {
+        if (playing) {
             currentlyOutputtingAudio = true;
-            //letterPanel.setCharacter(c);
-            ((CodePanel) codePanel).setSymbol(morsePlayer.getSymbol(c));
-            codePanel.paintImmediately(0,0, codePanel.getWidth(), codePanel.getHeight());
-            
             try {
-                Thread.sleep(20);
-            } catch (InterruptedException ex) {
+                morsePlayer.play(c);
+            } catch (LineUnavailableException ex) {
                 Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
             }
-            class Player extends SwingWorker<String, Void> {
-
-                @Override
-                public String doInBackground() {
-                    try {
-                        //((CodePanel) codePanel).setSymbol(morsePlayer.getSymbol(c));
-                        //codePanel.repaint(19);
-                       // try {
-                        //    Thread.sleep(20);
-                        //} catch (InterruptedException ex) {
-                        //    Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
-                        //}
-                        currentlyOutputtingAudio = true;
-                        morsePlayer.play(c);
-                        currentlyOutputtingAudio = false;
-                        ((CodePanel) codePanel).clearSymbol();
-                        codePanel.repaint(19);
-                        //try {
-                        //    Thread.sleep(20);
-                        //} catch (InterruptedException ex) {
-                        //    Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
-                        //}
-
-                    } catch (LineUnavailableException ex) {
-                        Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    return "";
-                }
-
-                @Override
-                protected void done() {
-                    currentlyOutputtingAudio = false;
-                }
-            }
-            new Player().execute();
-//            int strLen = theText.length();
-//            for (int i = 0; i < strLen; i++) {
-//                play(theText.charAt(i));
-//            }
+            currentlyOutputtingAudio = false;
         }
-
     }
+//        class Player extends SwingWorker<String, Void> {
+//
+//            @Override
+//            public String doInBackground() {
+//                try {
+//
+//                }
+//            }
+//            catch (LineUnavailableException ex
+//
+//            
+//                ) {
+//                    Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+//        
+//        return "";
+//            }
+//
+//            @Override
+//        protected void done
+//            
+//        
+//            () {
+//                currentlyOutputtingAudio = false;
+//        }
+//    }
+//
+//    new Player()
+//
+//.execute();
+//    }
 
     private void restartMorsePlayer() {
         try {
@@ -382,7 +375,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                         .addComponent(immediatePlayCheckBox))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, textInputPanelLayout.createSequentialGroup()
-                        .addComponent(playButton)
+                        .addComponent(playButton, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -684,7 +677,18 @@ public class MorsePracticePad extends javax.swing.JFrame {
 
     private void inputTextAreaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputTextAreaKeyTyped
         if (immediatePlay) {
-            play(evt.getKeyChar());
+            char c = evt.getKeyChar();
+            playing = true;
+            ((CodePanel) codePanel).setSymbol(morsePlayer.getSymbol(c));
+            codePanel.paintImmediately(0, 0, codePanel.getWidth(), codePanel.getHeight());
+            try {
+                Thread.sleep(Symbol.getDit(gpm) * 3);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            play(c);
+            playing = false;
+            ((CodePanel) codePanel).clearSymbol();
         }
     }//GEN-LAST:event_inputTextAreaKeyTyped
 
