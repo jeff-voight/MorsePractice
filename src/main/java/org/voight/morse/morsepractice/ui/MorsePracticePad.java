@@ -153,7 +153,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
             int strlen = text.length();
             for (int i = 0; i < strlen; i++) {
                 //letterPanel.setCharacter(text.charAt(i));
-                while (currentlyOutputtingAudio&&playing) {
+                while (currentlyOutputtingAudio && playing) {
                     try {
                         Thread.sleep(20);
                     } catch (InterruptedException ex) {
@@ -172,7 +172,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
 
     private void play(char c) {
         if (!currentlyOutputtingAudio) {
-            currentlyOutputtingAudio=true;
+            currentlyOutputtingAudio = true;
             //letterPanel.setCharacter(c);
             ((CodePanel) codePanel).setSymbol(morsePlayer.getSymbol(c));
             codePanel.repaint();
@@ -182,12 +182,28 @@ public class MorsePracticePad extends javax.swing.JFrame {
                 Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
             }
             class Player extends SwingWorker<String, Void> {
+
                 @Override
                 public String doInBackground() {
                     try {
-                        currentlyOutputtingAudio=true;
+                        ((CodePanel) codePanel).setSymbol(morsePlayer.getSymbol(c));
+                        codePanel.repaint(19);
+                        try {
+                            Thread.sleep(20);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        currentlyOutputtingAudio = true;
                         morsePlayer.play(c);
-                        currentlyOutputtingAudio=false;
+                        currentlyOutputtingAudio = false;
+                        ((CodePanel) codePanel).clearSymbol();
+                        codePanel.repaint(19);
+                        try {
+                            Thread.sleep(20);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
                     } catch (LineUnavailableException ex) {
                         Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -323,6 +339,11 @@ public class MorsePracticePad extends javax.swing.JFrame {
 
         immediatePlayCheckBox.setText("Immediate Play");
         immediatePlayCheckBox.setToolTipText("Play Morse Code as symbols are entered.");
+        immediatePlayCheckBox.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                immediatePlayCheckBoxStateChanged(evt);
+            }
+        });
         immediatePlayCheckBox.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 immediatePlayCheckBoxPropertyChange(evt);
@@ -339,6 +360,11 @@ public class MorsePracticePad extends javax.swing.JFrame {
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
+        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextArea1KeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout textInputPanelLayout = new javax.swing.GroupLayout(textInputPanel);
@@ -653,6 +679,16 @@ public class MorsePracticePad extends javax.swing.JFrame {
     private void frequencySliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_frequencySliderStateChanged
         changeFrequency();
     }//GEN-LAST:event_frequencySliderStateChanged
+
+    private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
+        if (immediatePlay) {
+            play(evt.getKeyChar());
+        }
+    }//GEN-LAST:event_jTextArea1KeyTyped
+
+    private void immediatePlayCheckBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_immediatePlayCheckBoxStateChanged
+        changeImmediatePlay();
+    }//GEN-LAST:event_immediatePlayCheckBoxStateChanged
 
     /**
      * @param args the command line arguments
