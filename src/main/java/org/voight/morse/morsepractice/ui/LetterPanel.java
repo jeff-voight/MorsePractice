@@ -28,7 +28,7 @@ public class LetterPanel extends JPanel {
 
     public LetterPanel() {
         super();
-        this.setFont(this.getFont().deriveFont(96f));
+        this.setFont(this.getFont().deriveFont(150f));
         try {
             symbol = new Symbol(' ', "", 700, 10); // This is a dummy symbol. Probably never get seen
         } catch (LineUnavailableException ex) {

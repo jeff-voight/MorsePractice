@@ -155,8 +155,8 @@ public class MorsePracticePad extends javax.swing.JFrame {
             int strlen = text.length();
             for (int i = 0; i < strlen; i++) {
                 char c = text.charAt(i);
-                Symbol s=morsePlayer.getSymbol(c);
-                ((LetterPanel)letterPanel).setSymbol(s);
+                Symbol s = morsePlayer.getSymbol(c);
+                ((LetterPanel) letterPanel).setSymbol(s);
                 ((CodePanel) codePanel).setSymbol(s);
                 codePanel.revalidate();
                 codePanel.paintImmediately(0, 0, codePanel.getWidth(), codePanel.getHeight());
@@ -177,7 +177,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
         playButton.setText("Play");
         playButton.paintImmediately(0, 0, playButton.getWidth(), playButton.getHeight());
         ((CodePanel) codePanel).clearSymbol();
-        ((LetterPanel)letterPanel).clearSymbol();
+        ((LetterPanel) letterPanel).clearSymbol();
     }
 
     private void play(char c) {
@@ -650,10 +650,16 @@ public class MorsePracticePad extends javax.swing.JFrame {
 
     private void inputTextAreaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputTextAreaKeyTyped
         if (immediatePlay) {
+            evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
             char c = evt.getKeyChar();
             playing = true;
-            ((CodePanel) codePanel).setSymbol(morsePlayer.getSymbol(c));
+            Symbol s=morsePlayer.getSymbol(c);
+            ((LetterPanel) letterPanel).setSymbol(s);
+            letterPanel.revalidate();
+            letterPanel.paintImmediately(0, 0, letterPanel.getWidth(), letterPanel.getHeight());
+            ((CodePanel) codePanel).setSymbol(s);
             codePanel.paintImmediately(0, 0, codePanel.getWidth(), codePanel.getHeight());
+            inputTextArea.paintImmediately(0, 0, inputTextArea.getWidth(), inputTextArea.getHeight());
             try {
                 Thread.sleep(Symbol.getDit(gpm));
             } catch (InterruptedException ex) {
@@ -662,6 +668,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
             play(c);
             playing = false;
             ((CodePanel) codePanel).clearSymbol();
+            ((LetterPanel)letterPanel).clearSymbol();
         }
     }//GEN-LAST:event_inputTextAreaKeyTyped
 
