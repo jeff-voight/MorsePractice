@@ -5,7 +5,11 @@
  */
 package org.voight.morse.morsepractice.ui;
 
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
+import static java.awt.SystemColor.text;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.logging.Level;
@@ -22,15 +26,36 @@ public class LetterPanel extends JPanel {
 
     Symbol symbol;
     boolean clear = false;
-    int charWidth, charHeight, width, height, centerWidth,
-            centerHeight, dashHeight, dashWidth, dotHeight, dotWidth, symbolLength;
+    int charWidth, charHeight, width, height, baseX,
+            baseY, fHeight, fWidth;
     String symbolString;
+    FontMetrics metrics;
 
     public LetterPanel() {
         super();
-        this.setFont(this.getFont().deriveFont(150f));
+        this.setFont(this.getFont().deriveFont(90f));
+
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                Graphics g = e.getComponent().getGraphics();
+                Font f = g.getFont();
+                charWidth = getWidth();
+                charHeight = getHeight();
+
+                // get metrics from the graphics
+                metrics = g.getFontMetrics(f);
+                // get the height of a line of text in this
+                // font and render context
+                fHeight = metrics.getHeight();
+                fWidth = metrics.stringWidth("W");
+                baseY = fHeight; // height- (fHeight / 2);
+                baseX = 30;
+
+            }
+        });
         try {
-            symbol = new Symbol(' ', "", 700, 10); // This is a dummy symbol. Probably never get seen
+            setSymbol(new Symbol(' ', "", 700, 10)); // This is a dummy symbol. Probably never get seen
         } catch (LineUnavailableException ex) {
             Logger.getLogger(CodePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -41,7 +66,7 @@ public class LetterPanel extends JPanel {
         super.paintComponent(g);
         g.clearRect(0, 0, width, height);
         if (!clear && symbol != null) {
-            g.drawString(symbol.getText(), 30, getHeight()-10);
+            g.drawString(symbolString, baseX, baseY);
 
         }
     }
@@ -52,24 +77,12 @@ public class LetterPanel extends JPanel {
 
     }
 
-    public void setSymbol(Symbol s) {
+    public final void setSymbol(Symbol s) {
         clear = false;
         symbol = s;
-        symbolString = symbol.getCode();
-        symbolLength = symbolString.length();
+        symbolString = symbol.getText();
+
         this.repaint(20);
     }
 
-    private void drawDash(Graphics g, int start) {
-        int x = start + centerWidth - dashWidth / 2;
-        int y = centerHeight - dashHeight / 2;
-        g.fillRoundRect(x, y, dashWidth, dashHeight, 9, 9);
-    }
-
-    private void drawDot(Graphics g, int start) {
-        int x = start + centerWidth - dotWidth / 2;
-        int y = centerHeight - dotHeight / 2;
-        g.fillOval(x, y, dotWidth, dotHeight);
-
-    }
 }
