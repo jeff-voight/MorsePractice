@@ -154,7 +154,7 @@ public class Symbol {
      * @return
      */
     public static int getDit(int _gpm) {
-        double symbolPerMinute=_gpm*5;
+        double symbolPerMinute=_gpm*50;
         double symbolDuration = 60/symbolPerMinute;
         // The longest duration a symbol can be at this rate in seconds
         // The longest symbol possible is 5 DAHs in a row plus a DAH pause at the end.
@@ -162,10 +162,10 @@ public class Symbol {
         // 6*DAH + 4*DIT. Each DAH is 3*DIT. This means that the longest symbol is 
         // 3 * 6 * DAH + 4 * DIT = (18 + 4) * DIT or 22*DIT.
         // Therefore, a DIT is longest/22.
-        double ditDuration = symbolDuration/22; 
-        int ditDurationMilliseconds=(int)(ditDuration*1000);
+        //double ditDuration = symbolDuration/22; 
+        int ditDurationMilliseconds=(int)(symbolDuration*1000);
         log.info("At " + _gpm + "GPM, DIT is " + ditDurationMilliseconds + " milliseconds.");
-        return ditDurationMilliseconds;
+        return (int)ditDurationMilliseconds;
     }
 
     private void setDurations(int _speed) {

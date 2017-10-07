@@ -327,7 +327,10 @@ public class MorsePracticePad extends javax.swing.JFrame {
         });
 
         inputTextArea.setColumns(20);
+        inputTextArea.setLineWrap(true);
         inputTextArea.setRows(5);
+        inputTextArea.setToolTipText("Enter text here and click Play");
+        inputTextArea.setWrapStyleWord(true);
         inputTextArea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 inputTextAreaKeyTyped(evt);
