@@ -155,13 +155,16 @@ public class MorsePracticePad extends javax.swing.JFrame {
             int strlen = text.length();
             for (int i = 0; i < strlen; i++) {
                 char c = text.charAt(i);
-                //((LetterPanel)letterPanel).setCharacter(text.charAt(i));
-                ((CodePanel) codePanel).setSymbol(morsePlayer.getSymbol(c));
+                Symbol s=morsePlayer.getSymbol(c);
+                ((LetterPanel)letterPanel).setSymbol(s);
+                ((CodePanel) codePanel).setSymbol(s);
                 codePanel.revalidate();
                 codePanel.paintImmediately(0, 0, codePanel.getWidth(), codePanel.getHeight());
+                letterPanel.revalidate();
+                letterPanel.paintImmediately(0, 0, letterPanel.getWidth(), letterPanel.getHeight());
                 play(c);
                 try {
-                    Thread.sleep(Symbol.getDit(gpm) * 4);
+                    Thread.sleep(Symbol.getDit(gpm) * 3);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -174,6 +177,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
         playButton.setText("Play");
         playButton.paintImmediately(0, 0, playButton.getWidth(), playButton.getHeight());
         ((CodePanel) codePanel).clearSymbol();
+        ((LetterPanel)letterPanel).clearSymbol();
     }
 
     private void play(char c) {
@@ -651,7 +655,7 @@ public class MorsePracticePad extends javax.swing.JFrame {
             ((CodePanel) codePanel).setSymbol(morsePlayer.getSymbol(c));
             codePanel.paintImmediately(0, 0, codePanel.getWidth(), codePanel.getHeight());
             try {
-                Thread.sleep(Symbol.getDit(gpm) * 3);
+                Thread.sleep(Symbol.getDit(gpm));
             } catch (InterruptedException ex) {
                 Logger.getLogger(MorsePracticePad.class.getName()).log(Level.SEVERE, null, ex);
             }

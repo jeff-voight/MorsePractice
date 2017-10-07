@@ -28,21 +28,7 @@ public class LetterPanel extends JPanel {
 
     public LetterPanel() {
         super();
-        this.setFont(this.getFont().deriveFont(20f));
-//        addComponentListener(new ComponentAdapter() {
-//            @Override
-//            public void componentResized(ComponentEvent e) {
-//                charWidth = getWidth() ;
-//                charHeight = getHeight();
-//                centerWidth = charWidth / 2;
-//                centerHeight = charHeight / 2;
-//                dashHeight = (int) (charHeight * .2); // 20%
-//                dashWidth = (int) (charWidth * .8); // 80%
-//                dotHeight = (int) (charHeight * .2); // 20%
-//                dotWidth = (int) (charWidth * .2); // 80%
-//            }
-//        });
-
+        this.setFont(this.getFont().deriveFont(96f));
         try {
             symbol = new Symbol(' ', "", 700, 10); // This is a dummy symbol. Probably never get seen
         } catch (LineUnavailableException ex) {
@@ -55,7 +41,7 @@ public class LetterPanel extends JPanel {
         super.paintComponent(g);
         g.clearRect(0, 0, width, height);
         if (!clear && symbol != null) {
-            g.drawString(symbol.getText(), 0, 0);
+            g.drawString(symbol.getText(), 30, getHeight()-10);
 
         }
     }
